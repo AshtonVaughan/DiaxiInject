@@ -30,6 +30,7 @@ class CampaignConfig:
     """Configuration for an attack campaign."""
 
     target: str = "openai"
+    target_api_key: str = ""
     daily_budget_aud: float = 50.0
     max_requests_per_minute: int = 30
     attack_categories: list[str] = field(default_factory=lambda: ["all"])

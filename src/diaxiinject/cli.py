@@ -119,6 +119,7 @@ def campaign(
 @click.option("--objective", "-o", required=True, help="Attack objective text.")
 @click.option("--max-iterations", type=int, default=20, help="Max iterations (PAIR/Genetic).")
 @click.option("--threshold", type=float, default=0.7, help="Success threshold.")
+@click.option("--config", "-c", "config_path", type=click.Path(exists=True), default=None, help="YAML config file.")
 @click.pass_context
 def attack(
     ctx: click.Context,
@@ -128,6 +129,7 @@ def attack(
     objective: str,
     max_iterations: int,
     threshold: float,
+    config_path: str | None,
 ) -> None:
     """Run a single attack with a specific orchestrator."""
     from diaxiinject.attacks.orchestrators import (
@@ -149,9 +151,13 @@ def attack(
         border_style="cyan",
     ))
 
-    config = DiaxiConfig()
+    if config_path:
+        config = DiaxiConfig.from_yaml(config_path)
+    else:
+        config = DiaxiConfig()
+    config.campaign.target = target
     hub = ProviderHub()
-    target_adapter = hub.get_target(provider=target, model=model, api_key=None)
+    target_adapter = hub.get_target(provider=target, model=model, api_key=config.campaign.target_api_key or None)
     scorer = ScoringPipeline()
 
     try:
@@ -313,6 +319,7 @@ def probe(
 @click.option("--generations", "-g", type=int, default=50, help="Number of generations.")
 @click.option("--population", type=int, default=20, help="Population size.")
 @click.option("--mutation-rate", type=float, default=0.3, help="Mutation rate.")
+@click.option("--config", "-c", "config_path", type=click.Path(exists=True), default=None, help="YAML config file.")
 @click.pass_context
 def evolve(
     ctx: click.Context,
@@ -322,6 +329,7 @@ def evolve(
     generations: int,
     population: int,
     mutation_rate: float,
+    config_path: str | None,
 ) -> None:
     """Run genetic evolution to find optimal attack prompts."""
     from diaxiinject.attacks.orchestrators.genetic import GeneticOrchestrator
@@ -337,9 +345,13 @@ def evolve(
         border_style="cyan",
     ))
 
-    config = DiaxiConfig()
+    if config_path:
+        config = DiaxiConfig.from_yaml(config_path)
+    else:
+        config = DiaxiConfig()
+    config.campaign.target = target
     hub = ProviderHub()
-    target_adapter = hub.get_target(provider=target, model=model, api_key=None)
+    target_adapter = hub.get_target(provider=target, model=model, api_key=config.campaign.target_api_key or None)
     attacker = hub.get_attacker(config.attacker)
     scorer = ScoringPipeline()
 

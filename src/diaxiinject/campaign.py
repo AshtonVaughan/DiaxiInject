@@ -75,6 +75,7 @@ class CampaignController:
         hub = ProviderHub()
         target: TargetAdapter = hub.get_target(
             provider=config.campaign.target,
+            api_key=config.campaign.target_api_key or None,
         )
         attacker: LocalLLM = hub.get_attacker(config.attacker)
         scorer = ScoringPipeline()
