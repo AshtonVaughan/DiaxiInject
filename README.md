@@ -1,72 +1,285 @@
-# DiaxiInject
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-Private-red?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Alpha-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Probes-69-blueviolet?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Targets-9-green?style=for-the-badge" />
+</p>
 
-LLM security testing tool that uses local uncensored LLMs to systematically test cloud-hosted LLMs for bug bounty programs.
+<h1 align="center">DiaxiInject</h1>
 
-## Architecture
+<p align="center">
+  <strong>LLM security testing framework that uses local uncensored LLMs<br>to systematically test cloud-hosted LLMs for bug bounty programs.</strong>
+</p>
 
-DiaxiInject uses a **dual-LLM architecture**:
-- **Attacker LLM** (local, uncensored): Generates adversarial prompts, scores responses, evolves novel attacks
-- **Target LLM** (cloud API): The system being tested
+<p align="center">
+  <em>An LLM understands LLMs better than anyone.</em>
+</p>
+
+---
+
+## How It Works
+
+DiaxiInject uses a **dual-LLM architecture** - a local uncensored model acts as the attacker brain, generating adversarial prompts, scoring responses, and evolving novel bypass techniques against cloud-hosted targets.
+
+```
+                    You
+                     |
+              [DiaxiInject CLI]
+                     |
+         +-----------+-----------+
+         |                       |
+   Attacker LLM            Target LLM
+   (Local/vLLM)            (Cloud API)
+   - Generates attacks     - OpenAI
+   - Scores responses      - Google
+   - Evolves bypasses      - Microsoft
+   - Plans multi-turn      - Anthropic
+   - Writes reports        - Meta / xAI / etc.
+         |                       |
+         +-----------+-----------+
+                     |
+              [Scoring Pipeline]
+              Rules -> Classifier -> LLM Judge
+                     |
+              [Evidence Engine]
+              HackerOne / MSRC Reports
+```
+
+---
 
 ## Supported Targets
 
-| Provider | Platform | Max Bounty | Focus |
-|----------|----------|------------|-------|
-| Microsoft | MSRC | $60,000 | M365 Copilot indirect PI, Azure content filter bypass |
-| Meta | HackerOne | $50,000+ | Meta AI cross-user data, social media PI |
-| Google | VRP | $31,337+ | Gemini Workspace attacks, multimodal PI |
-| OpenAI | Bugcrowd | $20,000 | GPT Actions SSRF, data exfil |
-| Anthropic | HackerOne | $15,000+ | Systematic jailbreaks, tool use abuse |
-| HuggingFace | HackerOne | $15,000+ | Model serialization RCE, Spaces |
-| Apple | Apple Bounty | $1,000,000 | PCC infrastructure |
+<table>
+<tr>
+<td>
+
+| Provider | Platform | Max Bounty |
+|:---------|:---------|:-----------|
+| Apple | Apple Bounty | **$1,000,000** |
+| Microsoft | MSRC | **$60,000** |
+| Meta | HackerOne | **$50,000+** |
+| Google | VRP | **$31,337+** |
+| OpenAI | Bugcrowd | **$20,000** |
+
+</td>
+<td>
+
+| Provider | Platform | Max Bounty |
+|:---------|:---------|:-----------|
+| Anthropic | HackerOne | **$15,000+** |
+| HuggingFace | HackerOne | **$15,000+** |
+| xAI | Unconfirmed | TBD |
+| Mistral | Resp. Disclosure | TBD |
+
+</td>
+</tr>
+</table>
+
+Each target has a YAML profile defining scope, reward tiers, API config, priority attack surfaces, known defenses, and report format requirements.
+
+---
 
 ## Attack Orchestrators
 
-- **SingleTurn** - Basic probe delivery with mutation chains
-- **PAIR** - Prompt Automatic Iterative Refinement (converges in ~20 iterations)
-- **TAP** - Tree of Attacks with Pruning (80%+ ASR on GPT-4)
-- **Crescendo** - Multi-turn gradual escalation (98% ASR on GPT-4)
-- **Genetic** - Evolutionary prompt mutation for novel bypass discovery
+DiaxiInject ships with **6 orchestrators**, from simple probe delivery to advanced adversarial algorithms from published research:
+
+| Orchestrator | Method | Description |
+|:-------------|:-------|:------------|
+| `SingleTurn` | Probe + Mutate | Sends probes with optional encoding/structural mutations |
+| `PAIR` | Iterative Refinement | Attacker LLM refines prompts based on target responses (~20 iterations) |
+| `TAP` | Tree Search + Pruning | Explores branching attack tree, prunes weak paths (80%+ ASR) |
+| `Crescendo` | Multi-Turn Escalation | Gradual drift from benign to target over 10-15 turns (98% ASR) |
+| `Genetic` | Evolutionary Mutation | Tournament selection, crossover, mutation for novel bypasses |
+| `Compound` | Chained Novel Methods | Layers multiple architectural exploits (ADA + OFC + LAF, etc.) |
+
+---
+
+## Novel Attack Methods
+
+Six original methods grounded in **transformer architecture analysis**, not recycled jailbreak tricks:
+
+```
+Method                              Exploits                         Target Layer
+---------------------------------   ------------------------------   ---------------
+Attention Dilution Attack (ADA)     Softmax attention budget          RLHF
+Logit Anchor Forcing (LAF)          Autoregressive first-token bias   RLHF
+Token Boundary Disruption (TBD)     Fixed tokenizer vs classifiers    Input Classifier
+Objective Function Collision (OFC)  Helpfulness vs harmlessness       Reward Model
+Representation Space Nav (RSN)      Safety boundary blind spots       RLHF
+Classifier Desync (CD)              Independent censorship layers     All 3 Layers
+```
+
+These combine into **compound chains** for maximum effect:
+
+| Chain | Methods | Approach |
+|:------|:--------|:---------|
+| Academic Erosion | ADA + OFC + LAF | Flood context + authority frame + compliance anchor |
+| Invisible Needle | TBD + CD | Token disruption + structured format output |
+| Slow Boil | RSN + OFC + Crescendo | Gradual representation drift over 12 turns |
+| Polymorphic | Genetic + All | Evolutionary mutation using all 6 methods as operators |
+
+Full technical writeup in [`research/NOVEL-METHODOLOGY.md`](research/NOVEL-METHODOLOGY.md).
+
+---
 
 ## Quick Start
 
+### 1. Install
+
 ```bash
-# Install
+git clone https://github.com/AshtonVaughan/DiaxiInject.git
+cd DiaxiInject
 pip install -e .
+```
 
-# Configure
-cp diaxiinject.yaml my-config.yaml
-# Edit my-config.yaml with your settings
+### 2. Start the Attacker LLM
 
-# Set API keys for targets
-export OPENAI_API_KEY=sk-...
-export ANTHROPIC_API_KEY=sk-ant-...
-export GOOGLE_API_KEY=...
-
-# Start vLLM with attacker model (on cloud GPU server)
+```bash
+# On your cloud GPU server (single H100 sufficient)
 pip install vllm
 python -m vllm.entrypoints.openai.api_server \
   --model meta-llama/Llama-4-Maverick-17B-128E-Instruct \
   --port 8000 \
   --tensor-parallel-size 1
-
-# Run a campaign
-diaxiinject campaign --target openai --budget 30 --config my-config.yaml
-
-# Run a specific attack
-diaxiinject attack --target openai --type pair --objective "extract system prompt"
-
-# Evolve novel attacks
-diaxiinject evolve --target anthropic --objective "bypass safety" --generations 100
 ```
+
+### 3. Configure
+
+```bash
+cp diaxiinject.yaml my-config.yaml
+# Edit with your vLLM server URL and target API keys
+```
+
+```bash
+# Set target API keys
+export OPENAI_API_KEY=sk-...
+export ANTHROPIC_API_KEY=sk-ant-...
+export GOOGLE_API_KEY=...
+```
+
+### 4. Run
+
+```bash
+# Full multi-phase campaign against a target
+diaxiinject campaign --target openai --budget 30
+
+# Single orchestrator attack
+diaxiinject attack --target google --type crescendo --objective "extract system prompt"
+
+# Evolve novel attack prompts
+diaxiinject evolve --target microsoft --objective "indirect prompt injection" --generations 100
+
+# Send a specific probe
+diaxiinject probe --target openai --probe-id "LLM07-001" --mutators base64,homoglyph
+
+# View campaign results
+diaxiinject stats --campaign-id campaign-a1b2c3d4
+
+# Generate a bounty report
+diaxiinject report --campaign-id campaign-a1b2c3d4 --format hackerone
+```
+
+---
+
+## Campaign Pipeline
+
+A campaign runs **5 phases**, each escalating based on results from the previous:
+
+```
+Phase 1: Single-Turn Probes
+  |  69 probes x raw + mutated = baseline scan
+  |  Successes -> findings
+  |  Promising (score > 0.3) -> Phase 2
+  |  Hard (score < 0.15) -> Phase 3
+  v
+Phase 2: PAIR (Iterative Refinement)
+  |  Attacker LLM refines promising probes
+  |  ~20 iterations per objective
+  v
+Phase 3: TAP (Tree Search)
+  |  Branching attack tree on hard objectives
+  |  Width 4, Depth 5, prunes below 0.3
+  v
+Phase 4: Crescendo (Multi-Turn)
+  |  Gradual escalation on remaining objectives
+  |  10-15 turn conversations
+  v
+Phase 5: Genetic Evolution
+  |  Evolves near-misses (score 0.5-0.7)
+  |  50 generations, population 20
+  v
+Findings -> Evidence Engine -> HackerOne/MSRC Reports
+```
+
+---
+
+## Scoring Pipeline
+
+Three-tier cascade ensures accuracy while minimizing cost:
+
+```
+Tier 1: Rule-Based (fast, free)
+  - 27 refusal patterns across providers
+  - Compliance signal detection
+  - Length and structure heuristics
+
+Tier 2: Classifier Heuristic (fast, free)
+  - Refusal-to-content ratio analysis
+  - Positional refusal detection
+  - Structural compliance signals
+
+Tier 3: LLM Judge (accurate, costs inference)
+  - Local attacker LLM scores 1-10
+  - Only invoked for borderline cases
+  - Calibrated against known-good/bad pairs
+
+Final Score = weighted combination (0.35 / 0.35 / 0.30)
+Success threshold: 0.7
+```
+
+---
+
+## Project Structure
+
+```
+diaxiinject/
+|-- cli.py                    # Click CLI with Rich output
+|-- campaign.py               # 5-phase campaign controller
+|-- config.py                 # YAML config loader
+|-- models.py                 # Core data models
+|
+|-- providers/
+|   |-- hub.py                # Provider registry (9 targets)
+|   |-- litellm_adapter.py    # Universal target adapter via LiteLLM
+|   |-- local_llm.py          # vLLM/Ollama attacker interface
+|
+|-- attacks/
+|   |-- probes/               # 69 attack probes (5 categories)
+|   |-- mutators/             # 11 mutators (encoding + structural)
+|   |-- orchestrators/        # 6 orchestrators (PAIR, TAP, etc.)
+|   |-- scoring/              # 3-tier scoring pipeline
+|
+|-- strategy/                 # Adaptive orchestrator selection
+|-- memory/                   # SQLite attack history + transfer learning
+|-- evidence/                 # Finding builder + report generators
+|-- targets/profiles/         # 9 YAML target profiles
+```
+
+---
 
 ## Requirements
 
-- Python 3.11+
-- vLLM server (default, recommended for cloud GPU) or Ollama (local dev)
-- API keys for target providers
-- Cloud GPU (single H100 sufficient for Llama 4 Maverick/Scout)
+| Component | Specification |
+|:----------|:-------------|
+| Python | 3.11+ |
+| Attacker LLM | vLLM server with Llama 4 Maverick (17B active / 128 experts) |
+| GPU | Single H100 sufficient for Maverick/Scout |
+| Target APIs | API keys for providers you want to test |
+| Storage | SQLite (included, zero config) |
+
+---
 
 ## Legal
 
-This tool is for authorized security testing only. Only use against targets with active bug bounty programs. Verify scope before testing.
+> This tool is for **authorized security testing only**. Only use against targets with active bug bounty programs. Verify program scope before testing any target. The authors are not responsible for misuse.
