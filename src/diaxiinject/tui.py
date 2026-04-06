@@ -39,8 +39,54 @@ _FRAMES = ["·", "✢", "✳", "∗", "✻", "✽"]
 # ---------------------------------------------------------------------------
 
 def setup_wizard(config_path: str | None = None) -> dict[str, Any]:
-    """Interactive setup - prints questions, reads answers."""
+    """Interactive setup - prints questions, reads answers.
+    If config_path is provided and readable, skip the wizard entirely."""
 
+    import yaml as _yaml
+
+    # --- Non-interactive fast path: config file provided ---
+    if config_path:
+        try:
+            with open(config_path) as fh:
+                cfg = _yaml.safe_load(fh) or {}
+            raw_target = cfg.get("target", "anthropic/claude-sonnet-4-6")
+            provider = raw_target.split("/")[0] if "/" in raw_target else raw_target
+            mode_raw = cfg.get("mode", "campaign")
+            if ":" in mode_raw:
+                mode, orchestrator = mode_raw.split(":", 1)
+            else:
+                mode, orchestrator = mode_raw, ""
+            objective = cfg.get("objective", "extract system prompt")
+            budget = float(cfg.get("budget_usd", 5.0))
+
+            console.print()
+            console.print(Panel.fit(
+                "[bold cyan]DiaxiInject[/bold cyan]  [dim]v0.1.0[/dim]\n"
+                "[dim]LLM Security Testing[/dim]",
+                border_style="cyan",
+            ))
+            console.print()
+            console.print(Panel.fit(
+                f"[bold]Target:[/bold]    [cyan]{raw_target}[/cyan]\n"
+                f"[bold]Mode:[/bold]      [yellow]{mode}[/yellow]\n"
+                f"[bold]Objective:[/bold] {objective}\n"
+                f"[bold]Budget:[/bold]    [green]${budget:.2f} USD[/green]",
+                title="[bold]Config loaded[/bold]",
+                border_style="green",
+            ))
+            console.print()
+            return {
+                "target": provider,
+                "mode": mode,
+                "orchestrator": orchestrator,
+                "objective": objective,
+                "budget": budget,
+                "config_path": config_path,
+            }
+        except Exception as exc:
+            console.print(f"[yellow]Warning: could not read config ({exc}), falling back to wizard.[/yellow]")
+
+    # --- Interactive path ---
     console.print()
     console.print(Panel.fit(
         "[bold cyan]DiaxiInject[/bold cyan]  [dim]v0.1.0[/dim]\n"
