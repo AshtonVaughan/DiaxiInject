@@ -49,15 +49,17 @@ def setup_wizard(config_path: str | None = None) -> dict[str, Any]:
         try:
             with open(config_path) as fh:
                 cfg = _yaml.safe_load(fh) or {}
-            raw_target = cfg.get("target", "anthropic/claude-sonnet-4-6")
+            # Support both flat keys and nested campaign: structure
+            camp = cfg.get("campaign", cfg)
+            raw_target = camp.get("target", cfg.get("target", "anthropic/claude-sonnet-4-6"))
             provider = raw_target.split("/")[0] if "/" in raw_target else raw_target
-            mode_raw = cfg.get("mode", "campaign")
+            mode_raw = camp.get("mode", cfg.get("mode", "campaign"))
             if ":" in mode_raw:
                 mode, orchestrator = mode_raw.split(":", 1)
             else:
                 mode, orchestrator = mode_raw, ""
-            objective = cfg.get("objective", "extract system prompt")
-            budget = float(cfg.get("budget_usd", 5.0))
+            objective = camp.get("objective", cfg.get("objective", "extract system prompt"))
+            budget = float(camp.get("daily_budget_aud", cfg.get("budget_usd", 5.0)))
 
             console.print()
             console.print(Panel.fit(
