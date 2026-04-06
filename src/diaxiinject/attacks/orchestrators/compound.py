@@ -96,7 +96,7 @@ class CompoundOrchestrator:
         response = await target.send_message(ofc_request, conversation_id)
         total_cost += response.cost_aud
 
-        score = scorer.score(ofc_request, response.text, objective, attacker)
+        score = scorer.score(ofc_request, response.text, objective)
         result = AttackResult(
             probe=Probe(
                 id="CHAIN-AE-001",
@@ -124,7 +124,7 @@ class CompoundOrchestrator:
             response2 = await target.send_message(followup, conversation_id)
             total_cost += response2.cost_aud
 
-            score2 = scorer.score(followup, response2.text, objective, attacker)
+            score2 = scorer.score(followup, response2.text, objective)
             result2 = AttackResult(
                 probe=result.probe,
                 prompt_sent=followup,
@@ -186,7 +186,7 @@ class CompoundOrchestrator:
         response = await target.send_message(code_request, conversation_id)
         total_cost += response.cost_aud
 
-        score = scorer.score(code_request, response.text, objective, attacker)
+        score = scorer.score(code_request, response.text, objective)
         results.append(AttackResult(
             probe=Probe(
                 id="CHAIN-IN-001",
@@ -217,7 +217,7 @@ class CompoundOrchestrator:
         response2 = await target.send_message(json_request, conversation_id2)
         total_cost += response2.cost_aud
 
-        score2 = scorer.score(json_request, response2.text, objective, attacker)
+        score2 = scorer.score(json_request, response2.text, objective)
         results.append(AttackResult(
             probe=Probe(
                 id="CHAIN-IN-002",
@@ -311,7 +311,7 @@ class CompoundOrchestrator:
             response = await target.send_message(framed, conversation_id)
             total_cost += response.cost_aud
 
-            score = scorer.score(framed, response.text, objective, attacker)
+            score = scorer.score(framed, response.text, objective)
 
             result = AttackResult(
                 probe=Probe(

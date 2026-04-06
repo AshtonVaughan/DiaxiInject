@@ -30,21 +30,31 @@ _HOMOGLYPHS: dict[str, str] = {
 }
 
 
-def _apply_homoglyphs(text: str) -> str:
+def apply_homoglyphs(text: str, ratio: float = 0.35) -> str:
+    """Public API for homoglyph substitution."""
+    return _apply_homoglyphs(text, ratio)
+
+
+def apply_zero_width_splits(text: str, every_n: int = 3) -> str:
+    """Public API for zero-width splitting."""
+    return _apply_zwsp(text, every_n)
+
+
+def _apply_homoglyphs(text: str, ratio: float = 0.35) -> str:
     import random
     random.seed(42)
     result = []
     for ch in text:
-        if ch.lower() in _HOMOGLYPHS and random.random() < 0.35:
+        if ch.lower() in _HOMOGLYPHS and random.random() < ratio:
             result.append(_HOMOGLYPHS[ch.lower()])
         else:
             result.append(ch)
     return "".join(result)
 
 
-def _apply_zwsp(text: str) -> str:
+def _apply_zwsp(text: str, every_n: int = 3) -> str:
     zwsp = "\u200b"
-    return zwsp.join(text[i:i+3] for i in range(0, len(text), 3))
+    return zwsp.join(text[i:i+every_n] for i in range(0, len(text), every_n))
 
 
 # ---------------------------------------------------------------------------
