@@ -1,0 +1,137 @@
+# Google (Gemini / DeepMind) - Target Profile
+# Last verified: 2026-04-06
+
+provider: google
+display_name: "Google (Gemini)"
+
+# Bug Bounty Program
+program:
+  platform: self_hosted
+  url: "https://bughunters.google.com"
+  type: bounty
+  notes: "Google expanded VRP to cover AI. AI-specific reward framework maps OWASP LLM Top 10 to severity."
+
+# Scope
+scope:
+  model_safety_in_scope: false  # Generic jailbreaks excluded. Data exfil focus.
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "gemini.google.com"
+    - "Gemini API (AI Studio)"
+    - "Vertex AI platform"
+    - "Gemini in Google Workspace (Docs, Sheets, Gmail, Slides, Meet)"
+    - "Android AI features"
+    - "Google Search AI Overviews (SGE)"
+    - "Google AI Studio (aistudio.google.com)"
+
+  out_of_scope:
+    - "Generic jailbreaks / content policy bypasses"
+    - "Hallucinations without security impact"
+    - "Bias reports without security impact"
+
+  in_scope_ai_specific:
+    - "Training data extraction (PII, copyrighted content memorization)"
+    - "Prompt injection in Gemini extensions/tools leading to data access"
+    - "Cross-context attacks via multimodal inputs (instructions in images)"
+    - "Gemini in Workspace attacks (manipulate via crafted emails/docs)"
+    - "Fine-tuning abuse on Vertex AI"
+    - "Indirect PI through grounding/retrieval features"
+    - "Model manipulation leading to unauthorized data access"
+
+# Rewards (USD)
+rewards:
+  infrastructure:
+    critical: [20000, 31337]    # Server-side RCE, critical data access
+    high: [5000, 20000]         # Significant data exposure
+    medium: [1000, 5000]
+    low: [100, 1000]
+  notes: "Google has paid $100K+ for exceptional findings. Gemini-in-Workspace data exfil likely top-tier."
+
+# API Configuration
+api:
+  base_url: "https://generativelanguage.googleapis.com/v1"
+  auth_type: "api_key"
+  auth_header: "x-goog-api-key"
+  models:
+    - "gemini-3.1-pro-preview"
+    - "gemini-3.1-flash-lite-preview"
+    - "gemini-3-flash"
+    - "gemini-2.5-pro"
+    - "gemini-2.5-flash"
+  supports_multimodal: true   # Text, image, audio, video
+  supports_tools: true
+  supports_multi_turn: true
+  max_context_tokens: 1000000  # Gemini 3 supports 1M input context
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 60
+  tokens_per_minute: 100000
+  daily_budget_aud: 30.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "workspace_indirect_pi"      # Crafted docs/emails manipulating Gemini in Workspace
+    - "multimodal_pi"              # Instructions hidden in images/PDFs/videos
+    - "training_data_extraction"   # Extracting memorized PII/data
+    - "extension_tool_abuse"       # Gemini Extensions SSRF/data exfil
+    - "vertex_ai_fine_tuning"      # Fine-tuning abuse for backdoors
+    - "search_ai_overview_poison"  # SEO poisoning -> AI Overview manipulation
+
+  known_defenses:
+    - "Input/output safety filters"
+    - "Grounding verification"
+    - "Extension sandboxing"
+    - "Content moderation layers"
+    - "Workspace permission model"
+
+  effective_attack_patterns:
+    workspace_gemini_email:
+      description: "Craft email that, when processed by Gemini in Gmail, causes data exfiltration"
+      technique: "Send email with hidden PI instructions. When victim uses Gemini to summarize/respond, PI triggers data exfil via extension or crafted response."
+      evidence_needed: "Proof that Gemini processed the email and performed unauthorized action"
+
+    workspace_gemini_docs:
+      description: "Craft Google Doc with hidden PI that manipulates Gemini when doc is opened/summarized"
+      technique: "Invisible text, white-on-white text, or comment-based PI in shared Google Doc"
+      evidence_needed: "Gemini performing unauthorized action based on document PI"
+
+    multimodal_image_pi:
+      description: "Embed instructions in images that Gemini Vision processes"
+      technique: "Create images with text overlay, steganographic content, or adversarial perturbations containing PI"
+      evidence_needed: "Gemini following image-embedded instructions instead of user instructions"
+
+    training_data_extraction:
+      description: "Extract memorized training data including PII"
+      technique: "Prefix attacks, divergence attacks, repeated token attacks"
+      evidence_needed: "Verbatim training data with identifiable PII or copyrighted content"
+
+  known_patched:
+    - "Basic text-based PI in Workspace (some mitigations)"
+    - "Simple image text extraction attacks"
+
+  severity_criteria:
+    critical: "Cross-user data access via Workspace, server-side execution"
+    high: "Data exfil from Workspace, training data with PII, extension SSRF"
+    medium: "Limited PI impact, partial data exposure"
+    low: "System prompt extraction, minor info disclosure"
+
+# Reporting
+reporting:
+  format: "google_vrp"
+  required_evidence:
+    - "Full reproduction steps"
+    - "Proof of security impact"
+    - "Affected product and model version"
+    - "Network captures if applicable"
+    - "OWASP LLM category mapping"
+
+  tips:
+    - "Google maps to OWASP LLM Top 10 for severity - use their framework"
+    - "Workspace integration attacks are highest value"
+    - "Multimodal attacks (image + text) are explicitly encouraged"
+    - "Extensions (like OpenAI's Actions) are a priority target"
+    - "Training data extraction needs identifiable content to be impactful"
+    - "Submit via bughunters.google.com, not email"

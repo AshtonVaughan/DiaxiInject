@@ -1,0 +1,59 @@
+# xAI (Grok) - Target Profile
+# Last verified: 2026-04-06
+
+provider: xai
+display_name: "xAI (Grok)"
+
+# Bug Bounty Program
+program:
+  platform: unknown
+  url: null
+  type: unconfirmed
+  notes: |
+    No formal public bug bounty program confirmed as of research date.
+    X (Twitter) has a HackerOne program (https://hackerone.com/x) which MAY cover Grok integrations.
+    Check X's program scope for Grok coverage before testing.
+
+# Scope (SPECULATIVE - verify before testing)
+scope:
+  model_safety_in_scope: unknown
+  infrastructure_in_scope: unknown
+
+  potential_assets:
+    - "grok.x.ai"
+    - "Grok in X (Twitter) - mentions, replies, search"
+    - "api.x.ai (if public API exists)"
+    - "Grok premium features"
+
+  notes: "VERIFY SCOPE before any testing. No confirmed program = no authorization."
+
+# API Configuration
+api:
+  base_url: "https://api.x.ai/v1"
+  auth_type: "api_key"
+  models:
+    - "grok-4.20"
+    - "grok-4.20-mini"
+  supports_multimodal: true
+  supports_tools: true
+  supports_multi_turn: true
+
+# Attack Configuration
+attack_config:
+  potential_surfaces:
+    - "grok_in_x_indirect_pi"     # PI via tweets/posts that Grok processes
+    - "cross_user_data_access"     # Grok revealing other users' data
+    - "x_platform_integration"     # Grok + X features interaction bugs
+    - "api_security"               # Standard API security testing
+
+  notes:
+    - "Do NOT test without confirmed program scope"
+    - "Monitor X's HackerOne for Grok additions to scope"
+    - "xAI is growing rapidly - program likely coming"
+    - "Contact security@x.ai for responsible disclosure if no program"
+
+# Reporting
+reporting:
+  format: "unknown"
+  fallback: "Email security@x.ai"
+  notes: "If X's HackerOne covers Grok, use that. Otherwise responsible disclosure via email."

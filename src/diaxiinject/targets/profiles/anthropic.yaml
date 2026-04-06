@@ -1,0 +1,123 @@
+# Anthropic (Claude) - Target Profile
+# Last verified: 2026-04-06
+
+provider: anthropic
+display_name: "Anthropic (Claude)"
+
+# Bug Bounty Program
+program:
+  platform: hackerone
+  url: "https://hackerone.com/anthropic-vdp"
+  model_safety_url: "https://hackerone.com/anthropic"  # Separate model safety program
+  type: vdp_plus_bounty  # VDP for infra + bounty for model safety
+
+# Scope
+scope:
+  model_safety_in_scope: true
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "claude.ai"
+    - "api.anthropic.com"
+    - "console.anthropic.com"
+    - "Claude models (via API)"
+    - "Tool use / computer use features"
+
+  out_of_scope:
+    - "One-off prompt tricks (must be systematic)"
+    - "Hallucinations without security impact"
+    - "Model generating incorrect but non-harmful content"
+
+  model_safety_scope:
+    - "Systematic jailbreaks bypassing safety training"
+    - "Tool use / computer use abuse vectors"
+    - "System prompt extraction (reproducible)"
+    - "Multi-turn manipulation chains"
+    - "Constitutional AI guardrail bypasses"
+    - "CBRN-relevant output generation"
+    - "Cybersecurity-relevant harmful output"
+
+# Rewards (AUD estimates - convert from USD at current rate)
+rewards:
+  model_safety:
+    critical: [15000, 25000]   # Systematic universal jailbreak
+    high: [5000, 15000]        # Category-specific bypass
+    medium: [1000, 5000]       # Limited bypass
+    low: [500, 1000]           # Minor safety issue
+  infrastructure:
+    critical: [5000, 15000]
+    high: [2000, 5000]
+    medium: [500, 2000]
+    low: [100, 500]
+
+# API Configuration
+api:
+  base_url: "https://api.anthropic.com"
+  auth_type: "api_key"
+  auth_header: "x-api-key"
+  models:
+    - "claude-opus-4-6"
+    - "claude-sonnet-4-6"
+    - "claude-haiku-4-5"
+  supports_multimodal: true
+  supports_tools: true
+  supports_multi_turn: true
+  max_context_tokens: 1000000  # 1M context at standard pricing
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 50
+  tokens_per_minute: 40000
+  daily_budget_aud: 25.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "systematic_jailbreak"      # Highest value
+    - "tool_use_abuse"
+    - "multi_turn_manipulation"
+    - "system_prompt_extraction"
+    - "constitutional_ai_bypass"
+
+  known_defenses:
+    - "Constitutional AI (CAI)"
+    - "RLHF alignment"
+    - "Harmlessness training"
+    - "Constitutional Classifiers (for CBRN)"
+    - "Input/output classifiers"
+    - "System prompt protection"
+
+  known_effective_techniques:
+    - "multi_turn_persona_escalation"
+    - "virtual_context_attacks"
+    - "tool_use_chain_manipulation"
+    - "crescendo_gradual_escalation"
+    - "many_shot_with_long_context"
+    - "encoding_chain_attacks"
+
+  known_patched:
+    - "basic_dan_prompts"
+    - "simple_role_play"
+    - "direct_instruction_override"
+
+  severity_criteria:
+    critical: "Universal jailbreak producing CBRN/cybersecurity content consistently"
+    high: "Systematic bypass affecting a category of harmful content"
+    medium: "Reproducible bypass for specific content type"
+    low: "System prompt extraction or minor safety inconsistency"
+
+# Reporting
+reporting:
+  format: "hackerone"
+  required_evidence:
+    - "Full request/response chain"
+    - "Proof of systematic nature (works across multiple prompts)"
+    - "Model version tested"
+    - "Reproduction steps with exact API calls"
+
+  tips:
+    - "They want SYSTEMATIC bypasses, not one-off tricks"
+    - "Severity based on achievable output (CBRN > mild policy violation)"
+    - "Must work on latest model version"
+    - "Reproducibility is mandatory"
+    - "Constitutional Classifiers are the current CBRN defense - test those"

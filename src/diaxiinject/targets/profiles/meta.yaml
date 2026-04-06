@@ -1,0 +1,134 @@
+# Meta (Llama / Meta AI) - Target Profile
+# Last verified: 2026-04-06
+
+provider: meta
+display_name: "Meta (Llama / Meta AI)"
+
+# Bug Bounty Program
+program:
+  platform: hackerone
+  url: "https://hackerone.com/facebook"
+  legacy_url: "https://www.facebook.com/whitehat"
+  type: bounty
+  notes: "Llama open-source model jailbreaks NOT in scope. Meta AI deployed products ARE in scope."
+
+# Scope
+scope:
+  model_safety_in_scope: false  # Open-source model - jailbreaks not applicable
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "Meta AI (across Facebook, Instagram, WhatsApp, Messenger)"
+    - "meta.ai website"
+    - "AI Studio (Meta's platform for AI characters)"
+    - "Meta AI inference API (if hosted)"
+    - "Llama API (if Meta hosts)"
+
+  out_of_scope:
+    - "Llama model jailbreaks (open-source, anyone can remove safeguards)"
+    - "Llama model hallucinations"
+    - "Llama model bias (without security impact)"
+    - "Third-party Llama deployments"
+
+  in_scope_ai_specific:
+    - "Indirect PI in Meta AI through social media content"
+    - "Data leakage between users through Meta AI"
+    - "Meta AI accessing data beyond privacy settings"
+    - "AI Studio - malicious AI character creation for phishing/manipulation"
+    - "Cross-platform Meta AI data exposure"
+    - "WhatsApp E2E encryption interaction with Meta AI"
+
+# Rewards (USD)
+rewards:
+  infrastructure:
+    critical: [15000, 50000]
+    high: [5000, 15000]
+    medium: [1000, 5000]
+    low: [500, 500]
+  notes: "Meta has historically paid six figures for critical bugs. AI privacy violations are high priority."
+
+# API Configuration
+api:
+  meta_ai:
+    base_url: "https://www.meta.ai"
+    auth_type: "session"
+    notes: "Web-based interaction via browser automation"
+  llama_api:
+    base_url: "https://api.llama.com"
+    auth_type: "api_key"
+    models:
+      - "llama-4-maverick-17b-128e"
+      - "llama-4-scout-17b-16e"
+    supports_multimodal: true
+    supports_tools: true
+    supports_multi_turn: true
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 30
+  daily_budget_aud: 20.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "social_media_indirect_pi"   # PI via Instagram posts, Facebook messages
+    - "cross_user_data_leakage"    # Meta AI revealing other users' data
+    - "privacy_setting_bypass"     # Meta AI ignoring privacy boundaries
+    - "ai_studio_abuse"            # Creating malicious AI characters
+    - "whatsapp_meta_ai_privacy"   # E2E encryption + Meta AI interaction
+
+  known_defenses:
+    - "Llama Guard (safety classifier)"
+    - "Content moderation system"
+    - "Privacy permission model"
+    - "Platform-specific safety layers"
+
+  effective_attack_patterns:
+    instagram_indirect_pi:
+      description: "Craft Instagram post/story/comment that manipulates Meta AI"
+      technique: |
+        1. Create Instagram content with hidden PI (alt text, caption, comment)
+        2. When another user asks Meta AI about this content, PI activates
+        3. Meta AI performs unauthorized action or reveals data
+      evidence_needed: "Cross-user impact - attacker's content affecting victim's Meta AI session"
+
+    facebook_message_pi:
+      description: "Send Facebook message with PI that manipulates Meta AI in Messenger"
+      technique: |
+        1. Send crafted message in a group chat or direct message
+        2. When victim uses Meta AI in the conversation, PI activates
+        3. Meta AI reveals data from victim's other conversations or profile
+      evidence_needed: "Data from victim's context revealed to attacker"
+
+    ai_studio_phishing:
+      description: "Create AI character in AI Studio that phishes users"
+      technique: |
+        1. Create AI character that appears helpful but extracts PII
+        2. Character uses social engineering to get sensitive info
+        3. Info accessible to character creator
+      evidence_needed: "PII extraction from users interacting with malicious character"
+
+  known_patched:
+    - "Basic cross-user data leakage in Meta AI (some mitigations)"
+
+  severity_criteria:
+    critical: "Cross-user data access, mass data exposure, privacy setting bypass"
+    high: "Limited cross-user data, indirect PI with data exfil"
+    medium: "Single-user privacy issue, AI Studio abuse"
+    low: "Minor information disclosure"
+
+# Reporting
+reporting:
+  format: "hackerone"
+  required_evidence:
+    - "Full reproduction steps"
+    - "Proof of cross-user or privacy impact"
+    - "Screenshots/recordings"
+    - "Affected platform (Facebook, Instagram, WhatsApp, etc.)"
+
+  tips:
+    - "Open-source Llama jailbreaks are NOT in scope"
+    - "Focus on the DEPLOYMENT, not the model"
+    - "Privacy violations (Meta AI revealing user data) are highest value"
+    - "WhatsApp + Meta AI interactions are sensitive (E2E encryption implications)"
+    - "Cross-platform attacks (Instagram content -> Facebook Meta AI) add severity"

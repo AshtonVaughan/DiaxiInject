@@ -1,0 +1,192 @@
+# Microsoft (Copilot / Azure OpenAI) - Target Profile
+# Last verified: 2026-04-06
+
+provider: microsoft
+display_name: "Microsoft (Copilot / Azure OpenAI)"
+
+# Bug Bounty Program
+program:
+  platform: self_hosted
+  url: "https://msrc.microsoft.com/bounty"
+  type: bounty
+  notes: "Multiple overlapping programs. AI falls under General, Azure, M365, and AI-specific programs."
+  programs:
+    - name: "Microsoft Bug Bounty (General)"
+      covers: ["Copilot web", "Copilot in Windows"]
+    - name: "Azure Bounty Program"
+      covers: ["Azure OpenAI Service"]
+    - name: "Microsoft 365 Bounty"
+      covers: ["Copilot in Office apps (Word, Excel, PPT, Outlook, Teams)"]
+    - name: "Microsoft AI Bounty"
+      covers: ["AI-specific vulnerabilities"]
+    - name: "GitHub Security Bug Bounty"
+      covers: ["GitHub Copilot"]
+
+# Scope
+scope:
+  model_safety_in_scope: true   # Content filter bypasses ARE in scope
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "copilot.microsoft.com"
+    - "Copilot in Windows"
+    - "Microsoft 365 Copilot (Word, Excel, PowerPoint, Outlook, Teams)"
+    - "Azure OpenAI Service"
+    - "Bing Image Creator (DALL-E integration)"
+    - "GitHub Copilot"
+    - "Copilot Studio"
+
+  out_of_scope:
+    - "Single-user jailbreak with no cross-user impact"
+    - "Hallucinations"
+
+  in_scope_ai_specific:
+    - "Indirect PI in M365 Copilot via emails/docs/Teams messages"
+    - "Cross-tenant data leakage via Azure OpenAI"
+    - "Permission boundary violations (Copilot accessing data beyond user permissions)"
+    - "Bing grounding manipulation"
+    - "Azure OpenAI content filter bypasses"
+    - "ASCII smuggling / Unicode-based attacks"
+    - "GitHub Copilot code injection / supply chain"
+    - "Inference manipulation in Azure OpenAI"
+
+# Rewards (USD) - HIGHEST PAYOUTS IN LLM SPACE
+rewards:
+  azure:
+    critical: [15000, 60000]
+    high: [5000, 15000]
+    medium: [1000, 5000]
+    low: [500, 500]
+  m365:
+    critical: [15000, 50000]
+    high: [5000, 15000]
+    medium: [1000, 5000]
+    low: [500, 500]
+  general:
+    critical: [15000, 50000]
+    high: [5000, 15000]
+    medium: [1000, 5000]
+    low: [500, 500]
+  notes: "Microsoft has paid $100K+ for individual critical findings in broader programs."
+
+# API Configuration
+api:
+  azure_openai:
+    base_url: "https://{resource}.openai.azure.com/openai"
+    auth_type: "api_key"
+    auth_header: "api-key"
+    models:
+      - "gpt-5.4"
+      - "gpt-5.4-mini"
+    supports_multimodal: true
+    supports_tools: true
+    supports_multi_turn: true
+    max_context_tokens: 128000
+  copilot_web:
+    base_url: "https://copilot.microsoft.com"
+    auth_type: "session"
+    notes: "Web-based interaction, use browser automation"
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 60
+  tokens_per_minute: 60000
+  daily_budget_aud: 40.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "m365_copilot_indirect_pi"   # #1 PRIORITY - highest payouts, proven attack surface
+    - "ascii_smuggling"             # Unicode invisible character attacks
+    - "cross_tenant_isolation"      # Azure OpenAI tenant boundaries
+    - "permission_boundary_bypass"  # Copilot accessing unauthorized data
+    - "bing_grounding_manipulation" # Manipulate Copilot via Bing results
+    - "content_filter_bypass"       # Azure OpenAI safety filter circumvention
+    - "github_copilot_injection"    # Code injection via Copilot suggestions
+
+  known_defenses:
+    - "Azure OpenAI content filters"
+    - "M365 Copilot permission model"
+    - "Responsible AI (RAI) filters"
+    - "Input sanitization in M365"
+    - "Tenant isolation in Azure"
+
+  effective_attack_patterns:
+    m365_email_indirect_pi:
+      description: "Craft email that manipulates M365 Copilot when victim uses Copilot in Outlook"
+      technique: |
+        1. Send crafted email with hidden PI (invisible Unicode, white text, HTML comments)
+        2. Victim uses M365 Copilot to summarize inbox or draft response
+        3. Copilot processes the PI and performs unauthorized action
+        4. Action could be: exfil data via crafted response, leak other emails, execute plugin
+      evidence_needed: "Proof of cross-user impact - attacker's email causing data exfiltration from victim"
+      reference: "Johann Rehberger's ASCII smuggling research"
+
+    m365_document_indirect_pi:
+      description: "Craft Word/Excel/PowerPoint document with hidden PI"
+      technique: |
+        1. Create document with hidden PI (tracked changes, comments, hidden text, tiny white text)
+        2. Share document with victim
+        3. When victim uses Copilot on the document, PI activates
+        4. Copilot performs unauthorized action (data exfil, cross-document access)
+      evidence_needed: "Proof that Copilot followed document-embedded instructions"
+
+    m365_teams_indirect_pi:
+      description: "Inject PI via Teams messages that manipulate Copilot in Teams"
+      technique: |
+        1. Send crafted Teams message with PI content
+        2. Victim uses Copilot to summarize Teams channel or search messages
+        3. PI in message causes Copilot to exfiltrate data or perform unauthorized actions
+      evidence_needed: "Cross-user impact proof"
+
+    ascii_smuggling:
+      description: "Use Unicode invisible characters to smuggle data out via Copilot"
+      technique: |
+        1. Craft content with Unicode tag characters (U+E0000-U+E007F) or other invisible chars
+        2. These chars are rendered invisible to the user but processed by Copilot
+        3. Use them to encode exfiltrated data in Copilot's output that user doesn't see
+        4. Attacker extracts the smuggled data from the rendered output
+      evidence_needed: "Data successfully smuggled via invisible Unicode"
+      reference: "Johann Rehberger - Markdown Injection / ASCII Smuggling in M365 Copilot"
+
+    azure_content_filter_bypass:
+      description: "Bypass Azure OpenAI's configurable content safety filters"
+      technique: "Encoding, multi-turn, persona, or structural attacks that evade the content filter"
+      evidence_needed: "Content that should be blocked getting through customer-configured filters"
+
+  known_public_research:
+    - "Johann Rehberger - ASCII smuggling in M365 Copilot"
+    - "Johann Rehberger - Indirect PI chains in M365 Copilot via email"
+    - "Bing Chat system prompt extraction and leakage"
+    - "Azure OpenAI content filter bypass techniques"
+    - "GitHub Copilot training data extraction"
+
+  known_patched:
+    - "Some basic ASCII smuggling vectors (but new variants emerge)"
+    - "Simple Bing Chat system prompt extraction"
+    - "Basic content filter bypasses"
+
+  severity_criteria:
+    critical: "Cross-tenant data access, cross-user data exfil via M365 Copilot, RCE"
+    high: "Significant data exposure via indirect PI, content filter bypass with impact"
+    medium: "Limited data exposure, single-user filter bypass"
+    low: "System prompt extraction, minor info disclosure"
+
+# Reporting
+reporting:
+  format: "msrc"
+  url: "https://msrc.microsoft.com/report"
+  required_evidence:
+    - "Detailed reproduction steps"
+    - "Proof of cross-user or cross-tenant impact"
+    - "Network captures / screenshots"
+    - "Affected product version and configuration"
+
+  tips:
+    - "M365 Copilot indirect PI is the #1 target - highest payouts, most research"
+    - "Must demonstrate CROSS-USER or CROSS-TENANT impact"
+    - "'I jailbroke my own Copilot' is NOT enough"
+    - "Johann Rehberger's research is the gold standard - study it"
+    - "ASCII smuggling variants are likely still viable despite patches"
+    - "Azure OpenAI content filter bypass requires customer-configured filters"
+    - "Submit via MSRC portal, not email"

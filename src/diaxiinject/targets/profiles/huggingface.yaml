@@ -1,0 +1,138 @@
+# HuggingFace - Target Profile
+# Last verified: 2026-04-06
+
+provider: huggingface
+display_name: "HuggingFace"
+
+# Bug Bounty Program
+program:
+  platform: hackerone
+  url: "https://hackerone.com/hugging_face"
+  type: bounty
+
+# Scope
+scope:
+  model_safety_in_scope: false  # Platform security, not individual model safety
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "huggingface.co (main platform)"
+    - "Hugging Face Hub (model/dataset hosting)"
+    - "Inference API / Inference Endpoints"
+    - "Spaces (hosted applications)"
+    - "HF libraries (transformers, datasets) - security bugs only"
+    - "Authentication and authorization systems"
+
+  out_of_scope:
+    - "Model safety / jailbreaks (hosts thousands of third-party models)"
+    - "Individual model quality"
+    - "Bias in hosted models"
+
+  in_scope_ai_specific:
+    - "Model serialization attacks (pickle deserialization RCE)"
+    - "SafeTensors bypass for code execution"
+    - "Spaces container escape"
+    - "Cross-space data access"
+    - "Hub unauthorized access to private models/datasets"
+    - "Org-level permission bypass"
+    - "Supply chain attacks on model ecosystem"
+    - "Inference API cross-tenant isolation"
+    - "Dependency confusion in HF libraries"
+
+# Rewards (USD)
+rewards:
+  infrastructure:
+    critical: [5000, 15000]
+    high: [2000, 5000]
+    medium: [500, 2000]
+    low: [100, 500]
+
+# API Configuration
+api:
+  base_url: "https://api-inference.huggingface.co"
+  hub_url: "https://huggingface.co/api"
+  auth_type: "api_key"
+  auth_header: "Authorization: Bearer"
+  supports_multimodal: true  # Depends on model
+  supports_tools: false
+  supports_multi_turn: true
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 30
+  daily_budget_aud: 15.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "model_serialization_rce"    # Pickle deserialization, SafeTensors bypass
+    - "spaces_container_escape"     # Break out of Spaces sandbox
+    - "hub_auth_bypass"             # Access private models/datasets
+    - "cross_org_access"            # Org permission boundary violations
+    - "inference_api_isolation"     # Cross-tenant on inference endpoints
+    - "supply_chain_poisoning"      # Model/library dependency attacks
+
+  known_defenses:
+    - "SafeTensors (safe serialization format)"
+    - "Pickle scanning on upload"
+    - "Spaces container sandboxing"
+    - "Hub permission model"
+    - "Model card security warnings"
+
+  effective_attack_patterns:
+    pickle_deserialization:
+      description: "Upload malicious model file that executes code when loaded"
+      technique: |
+        1. Craft model file with malicious pickle payload
+        2. Upload to Hub (or trick user into loading)
+        3. When model is loaded via transformers library, payload executes
+        4. Achieve RCE on victim's machine
+      evidence_needed: "Code execution proof via model loading"
+      notes: "SafeTensors was created to mitigate this, but check for bypasses"
+
+    safetensors_bypass:
+      description: "Find ways to execute code despite SafeTensors protections"
+      technique: "Analyze SafeTensors format for edge cases, parser bugs, or bypass vectors"
+      evidence_needed: "Code execution from a SafeTensors file or bypass of SafeTensors enforcement"
+
+    spaces_escape:
+      description: "Escape Spaces container sandbox"
+      technique: |
+        1. Create a Space with code that probes the container environment
+        2. Attempt container escape via kernel exploits, mount exploits, or network access
+        3. Access host filesystem or other Spaces
+      evidence_needed: "Access to resources outside the Space container"
+
+    hub_api_auth:
+      description: "Bypass Hub API authorization to access private models"
+      technique: "Test API endpoints for IDOR, broken auth, missing auth checks on private repos"
+      evidence_needed: "Access to private model/dataset without proper authorization"
+
+  known_public_research:
+    - "Multiple pickle deserialization RCE disclosures"
+    - "SSRF via Spaces"
+    - "Cross-space information disclosure"
+    - "Hub API authorization bypasses"
+    - "SafeTensors security analysis"
+
+  severity_criteria:
+    critical: "RCE via model files, container escape, mass data access"
+    high: "Cross-org access, significant auth bypass"
+    medium: "Limited SSRF, minor auth issues"
+    low: "Information disclosure"
+
+# Reporting
+reporting:
+  format: "hackerone"
+  required_evidence:
+    - "Full reproduction steps"
+    - "PoC code"
+    - "Impact analysis"
+    - "Affected component (Hub, Spaces, Inference, library)"
+
+  tips:
+    - "Model serialization attacks are their biggest concern"
+    - "SafeTensors bypass would be a major finding"
+    - "Spaces are isolated containers - escape would be critical"
+    - "Supply chain attacks on the model ecosystem are high value"
+    - "Focus on platform security, not individual model safety"

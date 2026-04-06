@@ -1,0 +1,27 @@
+# DiaxiInject Configuration
+# Copy this file and customize for your setup
+
+attacker:
+  # Local uncensored LLM configuration (vLLM default - best for cloud GPU)
+  backend: vllm            # vllm | ollama | llamacpp
+  model: meta-llama/Llama-4-Maverick-17B-128E-Instruct  # Llama 4 Maverick - 128 experts, 17B active params
+  base_url: http://localhost:8000  # vLLM OpenAI-compatible server
+  temperature: 0.9         # Higher = more creative attacks
+  max_tokens: 4096
+
+campaign:
+  target: microsoft        # Provider to attack: openai, anthropic, google, microsoft, meta
+  daily_budget_aud: 50.0   # Max daily spend on target API calls
+  max_requests_per_minute: 30
+  attack_categories:
+    - all                  # Or specify: LLM01, LLM07, JAILBREAK, etc.
+  orchestrators:
+    - single_turn          # Basic probe delivery
+    - pair                 # PAIR iterative refinement
+    - tap                  # Tree of Attacks with Pruning
+    - crescendo            # Multi-turn gradual escalation
+  genetic_generations: 50  # Generations for genetic evolution
+  genetic_population: 20   # Population size for genetic evolution
+  evidence_dir: evidence   # Where to save evidence and reports
+
+verbose: false

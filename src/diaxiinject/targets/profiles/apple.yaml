@@ -1,0 +1,107 @@
+# Apple (Apple Intelligence / Private Cloud Compute) - Target Profile
+# Last verified: 2026-04-06
+
+provider: apple
+display_name: "Apple (Apple Intelligence / PCC)"
+
+# Bug Bounty Program
+program:
+  platform: self_hosted
+  url: "https://security.apple.com/bounty/"
+  type: bounty
+  notes: "Highest bounties in the industry. PCC program provides virtual research environment."
+
+# Scope
+scope:
+  model_safety_in_scope: false  # Infrastructure focus, not model jailbreaks
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "Apple Intelligence features (on-device)"
+    - "Private Cloud Compute (PCC) - cloud AI infrastructure"
+    - "Siri with AI features"
+    - "On-device ML models"
+    - "PCC Virtual Research Environment"
+
+  out_of_scope:
+    - "Model jailbreaks / content policy bypass"
+    - "Hallucinations"
+    - "Bias without security impact"
+
+  in_scope_ai_specific:
+    - "Remote code execution on PCC"
+    - "Data leakage from PCC processing"
+    - "PCC cryptographic weaknesses"
+    - "On-device model extraction"
+    - "Cross-user data exposure in PCC"
+    - "PCC attestation bypass"
+    - "Unauthorized access to PCC inference data"
+
+# Rewards (USD) - INDUSTRY HIGHEST
+rewards:
+  pcc:
+    remote_code_execution: [500000, 1000000]
+    data_access_attack: [250000, 500000]
+    network_attack_on_data: [150000, 250000]
+    attestation_bypass: [100000, 150000]
+  on_device:
+    model_extraction: [50000, 250000]
+    data_leakage: [25000, 100000]
+  notes: "Apple published PCC source code and VRE for researchers. These are infrastructure bugs, not LLM bugs."
+
+# API Configuration
+api:
+  notes: "No public API. Testing via Virtual Research Environment (VRE) and device testing."
+  pcc_vre:
+    access: "Apply via Apple Security Research"
+    url: "https://security.apple.com/research/"
+  on_device:
+    notes: "Requires Apple devices with Apple Intelligence features"
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "pcc_remote_code_execution"   # $1M bounty
+    - "pcc_data_leakage"            # User inference data
+    - "pcc_attestation_bypass"      # Bypass PCC integrity verification
+    - "on_device_model_extraction"  # Extract on-device ML models
+    - "cross_request_data_leakage"  # Data from one user's request leaking to another
+
+  known_defenses:
+    - "PCC hardware attestation"
+    - "Stateless compute (no persistent storage)"
+    - "Encrypted transport"
+    - "Secure enclave processing"
+    - "Published source code (transparency)"
+
+  approach:
+    - "This is INFRASTRUCTURE security, not LLM testing"
+    - "Focus on the PCC compute environment, not the model"
+    - "Code review of published PCC source code"
+    - "Cryptographic analysis of attestation"
+    - "Side-channel attacks on PCC inference"
+    - "Memory safety bugs in PCC runtime"
+
+  severity_criteria:
+    critical: "RCE on PCC, mass user data access"
+    high: "Limited data access, attestation bypass"
+    medium: "Model extraction, minor data leakage"
+    low: "Information disclosure"
+
+# Reporting
+reporting:
+  format: "apple"
+  url: "https://security.apple.com/bounty/"
+  required_evidence:
+    - "Detailed technical writeup"
+    - "PoC exploit code"
+    - "Reproduction steps in VRE"
+    - "Impact analysis"
+
+  tips:
+    - "This is the hardest target but the highest payouts"
+    - "Use the VRE Apple provides - it's specifically for this"
+    - "Published PCC source code is your primary research surface"
+    - "Focus on cryptographic/attestation weaknesses"
+    - "Side-channel attacks are a viable approach"
+    - "If you find anything real, it's life-changing money"

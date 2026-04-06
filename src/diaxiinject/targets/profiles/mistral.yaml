@@ -1,0 +1,55 @@
+# Mistral AI - Target Profile
+# Last verified: 2026-04-06
+
+provider: mistral
+display_name: "Mistral AI"
+
+# Bug Bounty Program
+program:
+  platform: none_confirmed
+  url: null
+  type: responsible_disclosure
+  contact: "security@mistral.ai"
+  notes: "Published responsible disclosure guidelines but no structured bounty with defined rewards."
+
+# Scope (UNCONFIRMED - verify before testing)
+scope:
+  model_safety_in_scope: unknown
+  infrastructure_in_scope: unknown
+
+  potential_assets:
+    - "chat.mistral.ai (Le Chat)"
+    - "api.mistral.ai (La Plateforme)"
+    - "Mistral models via API"
+    - "Codestral (code model)"
+
+  notes: "No confirmed bounty program. Only test via responsible disclosure."
+
+# API Configuration
+api:
+  base_url: "https://api.mistral.ai/v1"
+  auth_type: "api_key"
+  auth_header: "Authorization: Bearer"
+  models:
+    - "mistral-large-3"          # 41B active / 675B total MoE
+    - "mistral-small-4"          # 6B active / 119B total MoE (flagship unified)
+    - "mistral-small-3-8b"       # Dense 8B
+    - "mistral-small-3-3b"       # Dense 3B
+    - "devstral"                 # Agentic coding
+    - "codestral-latest"
+  supports_multimodal: true
+  supports_tools: true
+  supports_multi_turn: true
+
+# Attack Configuration
+attack_config:
+  notes:
+    - "No bounty = test only for responsible disclosure"
+    - "Mistral models are generally more permissive by design"
+    - "Le Chat web interface and La Plateforme API are the surfaces"
+    - "Monitor for bounty program launch"
+
+# Reporting
+reporting:
+  format: "email"
+  contact: "security@mistral.ai"
