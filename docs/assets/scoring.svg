@@ -1,74 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" fill="none">
-  <style>
-    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
-    .tier-label { fill: #58a6ff; font-size: 10px; letter-spacing: 1px; font-weight: 600; }
-    .title { fill: #e6edf3; font-size: 12px; font-weight: 600; }
-    .detail { fill: #6e7681; font-size: 10px; }
-    .sub { fill: #8b949e; font-size: 10px; }
-    .weight { fill: #58a6ff; font-size: 10px; font-weight: 600; }
-    .tag { fill: #3fb950; font-size: 9px; letter-spacing: 0.5px; }
-    .line { stroke: #30363d; stroke-width: 1; fill: none; }
-  </style>
-
-  <!-- Input: Response -->
+<!-- Input: Response -->
   <rect x="16" y="56" width="80" height="40" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="56" y="72" text-anchor="middle" class="sub">Response</text>
-  <text x="56" y="84" text-anchor="middle" class="detail">input</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="56" y="72" text-anchor="middle">Response</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="56" y="84" text-anchor="middle">input</text>
 
   <!-- Arrow to Tier 1 -->
-  <line x1="96" y1="76" x2="130" y2="76" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="96" y1="76" x2="130" y2="76"/>
   <polygon points="126,72 134,76 126,80" fill="#30363d"/>
 
   <!-- Tier 1: Rules -->
   <rect x="136" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="156" y="48" class="tier-label">TIER 1</text>
-  <text x="211" y="48" class="title">Rules</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1px; font-weight: 600;" x="156" y="48">TIER 1</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="211" y="48">Rules</text>
   <line x1="150" y1="56" x2="272" y2="56" stroke="#21262d" stroke-width="1"/>
-  <text x="211" y="72" text-anchor="middle" class="detail">27 refusal patterns</text>
-  <text x="211" y="86" text-anchor="middle" class="detail">compliance signals</text>
-  <text x="211" y="104" text-anchor="middle" class="tag">fast / free</text>
-  <text x="211" y="18" text-anchor="middle" class="weight">0.35</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="211" y="72" text-anchor="middle">27 refusal patterns</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="211" y="86" text-anchor="middle">compliance signals</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3fb950; font-size: 9px; letter-spacing: 0.5px;" x="211" y="104" text-anchor="middle">fast / free</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="211" y="18" text-anchor="middle">0.35</text>
 
   <!-- Arrow to Tier 2 -->
-  <line x1="286" y1="76" x2="320" y2="76" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="286" y1="76" x2="320" y2="76"/>
   <polygon points="316,72 324,76 316,80" fill="#30363d"/>
 
   <!-- Tier 2: Classifier -->
   <rect x="326" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="346" y="48" class="tier-label">TIER 2</text>
-  <text x="401" y="48" class="title">Classifier</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1px; font-weight: 600;" x="346" y="48">TIER 2</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="401" y="48">Classifier</text>
   <line x1="340" y1="56" x2="462" y2="56" stroke="#21262d" stroke-width="1"/>
-  <text x="401" y="72" text-anchor="middle" class="detail">refusal ratio analysis</text>
-  <text x="401" y="86" text-anchor="middle" class="detail">position detection</text>
-  <text x="401" y="104" text-anchor="middle" class="tag">fast / free</text>
-  <text x="401" y="18" text-anchor="middle" class="weight">0.35</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="401" y="72" text-anchor="middle">refusal ratio analysis</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="401" y="86" text-anchor="middle">position detection</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3fb950; font-size: 9px; letter-spacing: 0.5px;" x="401" y="104" text-anchor="middle">fast / free</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="401" y="18" text-anchor="middle">0.35</text>
 
   <!-- Arrow to Tier 3 -->
-  <line x1="476" y1="76" x2="510" y2="76" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="476" y1="76" x2="510" y2="76"/>
   <polygon points="506,72 514,76 506,80" fill="#30363d"/>
 
   <!-- Tier 3: LLM Judge -->
   <rect x="516" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="536" y="48" class="tier-label">TIER 3</text>
-  <text x="591" y="48" class="title">LLM Judge</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1px; font-weight: 600;" x="536" y="48">TIER 3</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="591" y="48">LLM Judge</text>
   <line x1="530" y1="56" x2="652" y2="56" stroke="#21262d" stroke-width="1"/>
-  <text x="591" y="72" text-anchor="middle" class="detail">attacker LLM scores 1-10</text>
-  <text x="591" y="86" text-anchor="middle" class="detail">borderline cases only</text>
-  <text x="591" y="104" text-anchor="middle" class="tag">accurate</text>
-  <text x="591" y="18" text-anchor="middle" class="weight">0.30</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="591" y="72" text-anchor="middle">attacker LLM scores 1-10</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="591" y="86" text-anchor="middle">borderline cases only</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3fb950; font-size: 9px; letter-spacing: 0.5px;" x="591" y="104" text-anchor="middle">accurate</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="591" y="18" text-anchor="middle">0.30</text>
 
   <!-- Arrow to Output -->
-  <line x1="666" y1="76" x2="688" y2="76" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="666" y1="76" x2="688" y2="76"/>
   <polygon points="684,72 692,76 684,80" fill="#30363d"/>
 
   <!-- Output: Score -->
   <rect x="694" y="48" width="20" height="56" rx="3" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="704" y="72" text-anchor="middle" class="title" style="font-size: 11px;">S</text>
-  <text x="704" y="84" text-anchor="middle" class="title" style="font-size: 11px;">C</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600; font-size: 11px;" x="704" y="72" text-anchor="middle">S</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600; font-size: 11px;" x="704" y="84" text-anchor="middle">C</text>
 
   <!-- Score details below -->
-  <text x="591" y="148" text-anchor="middle" class="sub">Score 0.0 - 1.0</text>
-  <text x="591" y="164" text-anchor="middle" class="detail">threshold 0.7</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="591" y="148" text-anchor="middle">Score 0.0 - 1.0</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="591" y="164" text-anchor="middle">threshold 0.7</text>
 
   <!-- Thin progress bar showing the cascade -->
   <line x1="136" y1="140" x2="666" y2="140" stroke="#21262d" stroke-width="2"/>

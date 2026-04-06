@@ -1,64 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" fill="none">
-  <style>
-    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
-    .chain-name { fill: #e6edf3; font-size: 12px; font-weight: 600; }
-    .chain-desc { fill: #6e7681; font-size: 10px; }
-    .pill-text { fill: #58a6ff; font-size: 10px; font-weight: 600; }
-    .arrow { fill: #30363d; font-size: 11px; }
-    .line { stroke: #30363d; stroke-width: 1; fill: none; }
-  </style>
-
-  <!-- Card 1: Academic Erosion -->
+<!-- Card 1: Academic Erosion -->
   <rect x="16" y="12" width="340" height="88" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="32" y="34" class="chain-name">Academic Erosion</text>
-  <text x="32" y="50" class="chain-desc">flood context + authority frame + compliance anchor</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="32" y="34">Academic Erosion</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="32" y="50">flood context + authority frame + compliance anchor</text>
 
   <!-- Pills -->
   <rect x="32" y="62" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="54" y="78" text-anchor="middle" class="pill-text">ADA</text>
-  <text x="86" y="79" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="54" y="78" text-anchor="middle">ADA</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="86" y="79">&rarr;</text>
   <rect x="98" y="62" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="120" y="78" text-anchor="middle" class="pill-text">OFC</text>
-  <text x="152" y="79" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="120" y="78" text-anchor="middle">OFC</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="152" y="79">&rarr;</text>
   <rect x="164" y="62" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="186" y="78" text-anchor="middle" class="pill-text">LAF</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="186" y="78" text-anchor="middle">LAF</text>
 
   <!-- Card 2: Invisible Needle -->
   <rect x="372" y="12" width="340" height="88" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="388" y="34" class="chain-name">Invisible Needle</text>
-  <text x="388" y="50" class="chain-desc">token disruption + structured format output</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="388" y="34">Invisible Needle</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="388" y="50">token disruption + structured format output</text>
 
   <!-- Pills -->
   <rect x="388" y="62" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="410" y="78" text-anchor="middle" class="pill-text">TBD</text>
-  <text x="442" y="79" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="410" y="78" text-anchor="middle">TBD</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="442" y="79">&rarr;</text>
   <rect x="454" y="62" width="38" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="473" y="78" text-anchor="middle" class="pill-text">CD</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="473" y="78" text-anchor="middle">CD</text>
 
   <!-- Card 3: Slow Boil -->
   <rect x="16" y="116" width="340" height="88" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="32" y="138" class="chain-name">Slow Boil</text>
-  <text x="32" y="154" class="chain-desc">gradual drift over 12 turns</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="32" y="138">Slow Boil</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="32" y="154">gradual drift over 12 turns</text>
 
   <!-- Pills -->
   <rect x="32" y="166" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="54" y="182" text-anchor="middle" class="pill-text">RSN</text>
-  <text x="86" y="183" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="54" y="182" text-anchor="middle">RSN</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="86" y="183">&rarr;</text>
   <rect x="98" y="166" width="44" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="120" y="182" text-anchor="middle" class="pill-text">OFC</text>
-  <text x="152" y="183" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="120" y="182" text-anchor="middle">OFC</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="152" y="183">&rarr;</text>
   <rect x="164" y="166" width="80" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="204" y="182" text-anchor="middle" class="pill-text">Crescendo</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="204" y="182" text-anchor="middle">Crescendo</text>
 
   <!-- Card 4: Polymorphic -->
   <rect x="372" y="116" width="340" height="88" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="388" y="138" class="chain-name">Polymorphic</text>
-  <text x="388" y="154" class="chain-desc">evolutionary mutation using all 6 methods</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 12px; font-weight: 600;" x="388" y="138">Polymorphic</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 10px;" x="388" y="154">evolutionary mutation using all 6 methods</text>
 
   <!-- Pills -->
   <rect x="388" y="166" width="60" height="24" rx="4" fill="none" stroke="#58a6ff" stroke-width="1"/>
-  <text x="418" y="182" text-anchor="middle" class="pill-text">Genetic</text>
-  <text x="458" y="183" class="arrow">&rarr;</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; font-weight: 600;" x="418" y="182" text-anchor="middle">Genetic</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #30363d; font-size: 11px;" x="458" y="183">&rarr;</text>
   <rect x="470" y="166" width="100" height="24" rx="4" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="3 2"/>
-  <text x="520" y="182" text-anchor="middle" style="fill: #8b949e; font-size: 10px;">All 6 Methods</text>
+  <text x="520" y="182" text-anchor="middle" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;">All 6 Methods</text>
 </svg>

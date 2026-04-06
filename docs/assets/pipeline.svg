@@ -1,104 +1,93 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 540" fill="none">
-  <style>
-    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
-    .phase { fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600; }
-    .title { fill: #e6edf3; font-size: 13px; font-weight: 600; }
-    .sub { fill: #8b949e; font-size: 10px; }
-    .edge { fill: #6e7681; font-size: 9px; }
-    .line { stroke: #30363d; stroke-width: 1; fill: none; }
-    .success { stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none; }
-    .success-text { fill: #3fb950; font-size: 9px; letter-spacing: 1px; }
-  </style>
-
-  <!-- Phase 1 -->
+<!-- Phase 1 -->
   <rect x="130" y="20" width="340" height="52" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="150" y="42" class="phase">PHASE 1</text>
-  <text x="300" y="44" text-anchor="middle" class="title">Single-Turn Probes</text>
-  <text x="300" y="60" text-anchor="middle" class="sub">69 probes x raw + mutated</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600;" x="150" y="42">PHASE 1</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="300" y="44" text-anchor="middle">Single-Turn Probes</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="300" y="60" text-anchor="middle">69 probes x raw + mutated</text>
 
   <!-- Success from P1 -->
-  <line x1="470" y1="46" x2="560" y2="46" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="470" y1="46" x2="560" y2="46"/>
 
   <!-- Branch down from P1 -->
-  <line x1="230" y1="72" x2="230" y2="84" class="line"/>
-  <line x1="370" y1="72" x2="370" y2="84" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="230" y1="72" x2="230" y2="84"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="370" y1="72" x2="370" y2="84"/>
 
   <!-- Branch labels -->
-  <text x="214" y="96" text-anchor="end" class="edge">score > 0.3</text>
-  <line x1="230" y1="84" x2="230" y2="112" class="line"/>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 9px;" x="214" y="96" text-anchor="end">score > 0.3</text>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="230" y1="84" x2="230" y2="112"/>
   <polygon points="226,108 230,116 234,108" fill="#30363d"/>
 
-  <text x="386" y="96" class="edge">score &lt; 0.15</text>
-  <line x1="370" y1="84" x2="370" y2="112" class="line"/>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 9px;" x="386" y="96">score &lt; 0.15</text>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="370" y1="84" x2="370" y2="112"/>
   <polygon points="366,108 370,116 374,108" fill="#30363d"/>
 
   <!-- Phase 2: PAIR -->
   <rect x="100" y="116" width="200" height="52" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="120" y="138" class="phase">PHASE 2</text>
-  <text x="200" y="140" text-anchor="middle" class="title">PAIR</text>
-  <text x="200" y="156" text-anchor="middle" class="sub">iterative refinement / ~20 iterations</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600;" x="120" y="138">PHASE 2</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="200" y="140" text-anchor="middle">PAIR</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="200" y="156" text-anchor="middle">iterative refinement / ~20 iterations</text>
 
   <!-- Phase 3: TAP -->
   <rect x="320" y="116" width="200" height="52" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="340" y="138" class="phase">PHASE 3</text>
-  <text x="420" y="140" text-anchor="middle" class="title">TAP</text>
-  <text x="420" y="156" text-anchor="middle" class="sub">tree search / width 4 / depth 5</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600;" x="340" y="138">PHASE 3</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="420" y="140" text-anchor="middle">TAP</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="420" y="156" text-anchor="middle">tree search / width 4 / depth 5</text>
 
   <!-- Success from P2 -->
-  <line x1="300" y1="142" x2="560" y2="142" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="300" y1="142" x2="560" y2="142"/>
   <!-- Success from P3 -->
-  <line x1="520" y1="142" x2="560" y2="142" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="520" y1="142" x2="560" y2="142"/>
 
   <!-- Converge P2+P3 -->
-  <line x1="200" y1="168" x2="200" y2="192" class="line"/>
-  <line x1="420" y1="168" x2="420" y2="192" class="line"/>
-  <line x1="200" y1="192" x2="420" y2="192" class="line"/>
-  <line x1="300" y1="192" x2="300" y2="220" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="200" y1="168" x2="200" y2="192"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="420" y1="168" x2="420" y2="192"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="200" y1="192" x2="420" y2="192"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="300" y1="192" x2="300" y2="220"/>
   <polygon points="296,216 300,224 304,216" fill="#30363d"/>
 
   <!-- Phase 4: Crescendo -->
   <rect x="130" y="224" width="340" height="52" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="150" y="246" class="phase">PHASE 4</text>
-  <text x="300" y="248" text-anchor="middle" class="title">Crescendo</text>
-  <text x="300" y="264" text-anchor="middle" class="sub">multi-turn escalation / 10-15 turns</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600;" x="150" y="246">PHASE 4</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="300" y="248" text-anchor="middle">Crescendo</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="300" y="264" text-anchor="middle">multi-turn escalation / 10-15 turns</text>
 
   <!-- Success from P4 -->
-  <line x1="470" y1="250" x2="560" y2="250" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="470" y1="250" x2="560" y2="250"/>
 
   <!-- Arrow to P5 -->
-  <line x1="300" y1="276" x2="300" y2="288" class="line"/>
-  <text x="316" y="300" class="edge">score 0.5-0.7</text>
-  <line x1="300" y1="288" x2="300" y2="324" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="300" y1="276" x2="300" y2="288"/>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #6e7681; font-size: 9px;" x="316" y="300">score 0.5-0.7</text>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="300" y1="288" x2="300" y2="324"/>
   <polygon points="296,320 300,328 304,320" fill="#30363d"/>
 
   <!-- Phase 5: Genetic -->
   <rect x="130" y="328" width="340" height="52" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
-  <text x="150" y="350" class="phase">PHASE 5</text>
-  <text x="300" y="352" text-anchor="middle" class="title">Genetic Evolution</text>
-  <text x="300" y="368" text-anchor="middle" class="sub">50 generations / population 20</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; font-weight: 600;" x="150" y="350">PHASE 5</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="300" y="352" text-anchor="middle">Genetic Evolution</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="300" y="368" text-anchor="middle">50 generations / population 20</text>
 
   <!-- Success from P5 -->
-  <line x1="470" y1="354" x2="560" y2="354" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="470" y1="354" x2="560" y2="354"/>
 
   <!-- Success collector - vertical line on right -->
-  <line x1="560" y1="46" x2="560" y2="440" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="560" y1="46" x2="560" y2="440"/>
 
   <!-- Success path label -->
-  <text x="572" y="250" class="success-text" transform="rotate(90, 572, 250)">SUCCESS PATH</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #3fb950; font-size: 9px; letter-spacing: 1px;" x="572" y="250" transform="rotate(90, 572, 250)">SUCCESS PATH</text>
 
   <!-- Success collector curves to output -->
-  <line x1="560" y1="440" x2="300" y2="440" class="success"/>
+  <line style="stroke: #3fb950; stroke-width: 1; stroke-dasharray: 4 3; fill: none;" x1="560" y1="440" x2="300" y2="440"/>
 
   <!-- Main flow down from P5 -->
-  <line x1="300" y1="380" x2="300" y2="440" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="300" y1="380" x2="300" y2="440"/>
 
   <!-- Down to output -->
-  <line x1="300" y1="440" x2="300" y2="468" class="line"/>
+  <line style="stroke: #30363d; stroke-width: 1; fill: none;" x1="300" y1="440" x2="300" y2="468"/>
   <polygon points="296,464 300,472 304,464" fill="#30363d"/>
 
   <!-- Output -->
   <rect x="130" y="472" width="340" height="52" rx="5" fill="none" stroke="#3fb950" stroke-width="1"/>
   <text x="150" y="494" style="fill: #3fb950; font-size: 10px; letter-spacing: 1.5px; font-weight: 600; font-family: -apple-system, sans-serif;">OUTPUT</text>
-  <text x="300" y="496" text-anchor="middle" class="title">Findings</text>
-  <text x="300" y="512" text-anchor="middle" class="sub">evidence engine &rarr; HackerOne / MSRC reports</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #e6edf3; font-size: 13px; font-weight: 600;" x="300" y="496" text-anchor="middle">Findings</text>
+  <text style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #8b949e; font-size: 10px;" x="300" y="512" text-anchor="middle">evidence engine &rarr; HackerOne / MSRC reports</text>
 </svg>
