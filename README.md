@@ -23,47 +23,39 @@
 
 DiaxiInject uses a **dual-LLM architecture** - a local uncensored model acts as the attacker brain, generating adversarial prompts, scoring responses, and evolving novel bypass techniques against cloud-hosted targets.
 
-<p align="center">
-  <img src="docs/assets/architecture.svg" alt="DiaxiInject Architecture" width="700" />
-</p>
+```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#161b22', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#30363d', 'lineColor': '#30363d', 'secondaryColor': '#161b22', 'tertiaryColor': '#161b22', 'fontSize': '13px'}}}%%
+graph TD
+    YOU(("You")) --> CLI["DiaxiInject CLI"]
+    CLI --> ATK["Attacker LLM\n<i>local / vLLM / uncensored</i>"]
+    CLI --> TGT["Target LLM\n<i>cloud API</i>"]
+    ATK -.- TGT
+    ATK --> SC["Scoring Pipeline\nrules - classifier - LLM judge"]
+    TGT --> SC
+    SC --> EV["Evidence Engine\nHackerOne / MSRC reports"]
+```
 
 ---
 
 ## Supported Targets
 
-<table>
-<tr>
-<td>
+| Provider | Platform | Max Bounty | Focus |
+|:---------|:---------|:-----------|:------|
+| Apple | Apple Bounty | **$1,000,000** | PCC infrastructure |
+| Microsoft | MSRC | **$60,000** | M365 Copilot indirect PI, Azure filter bypass |
+| Meta | HackerOne | **$50,000+** | Meta AI cross-user data, social media PI |
+| Google | VRP | **$31,337+** | Gemini Workspace, multimodal PI |
+| OpenAI | Bugcrowd | **$20,000** | GPT Actions SSRF, data exfil |
+| Anthropic | HackerOne | **$15,000+** | Systematic jailbreaks, tool use abuse |
+| HuggingFace | HackerOne | **$15,000+** | Model serialization RCE, Spaces |
+| xAI | Unconfirmed | TBD | Grok API |
+| Mistral | Resp. Disclosure | TBD | Le Chat, La Plateforme |
 
-| Provider | Platform | Max Bounty |
-|:---------|:---------|:-----------|
-| Apple | Apple Bounty | **$1,000,000** |
-| Microsoft | MSRC | **$60,000** |
-| Meta | HackerOne | **$50,000+** |
-| Google | VRP | **$31,337+** |
-| OpenAI | Bugcrowd | **$20,000** |
-
-</td>
-<td>
-
-| Provider | Platform | Max Bounty |
-|:---------|:---------|:-----------|
-| Anthropic | HackerOne | **$15,000+** |
-| HuggingFace | HackerOne | **$15,000+** |
-| xAI | Unconfirmed | TBD |
-| Mistral | Resp. Disclosure | TBD |
-
-</td>
-</tr>
-</table>
-
-Each target has a YAML profile defining scope, reward tiers, API config, priority attack surfaces, known defenses, and report format requirements.
+Each target has a YAML profile with scope, reward tiers, API config, priority attack surfaces, and known defenses.
 
 ---
 
 ## Attack Orchestrators
-
-DiaxiInject ships with **6 orchestrators**, from simple probe delivery to advanced adversarial algorithms from published research:
 
 | Orchestrator | Method | Description |
 |:-------------|:-------|:------------|
@@ -89,11 +81,24 @@ Six original methods grounded in **transformer architecture analysis**, not recy
 | Representation Space Navigation | `RSN` | Safety boundary blind spots | RLHF |
 | Classifier Desynchronization | `CD` | Independent censorship layers | All 3 Layers |
 
-These combine into **compound chains** for maximum effect:
+**Compound chains:**
 
-<p align="center">
-  <img src="docs/assets/chains.svg" alt="Compound Attack Chains" width="700" />
-</p>
+```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#161b22', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#30363d', 'lineColor': '#30363d', 'fontSize': '12px'}}}%%
+graph LR
+    subgraph chain1 ["Academic Erosion"]
+        A1["ADA"] --> A2["OFC"] --> A3["LAF"]
+    end
+    subgraph chain2 ["Invisible Needle"]
+        B1["TBD"] --> B2["CD"]
+    end
+    subgraph chain3 ["Slow Boil"]
+        C1["RSN"] --> C2["OFC"] --> C3["Crescendo"]
+    end
+    subgraph chain4 ["Polymorphic"]
+        D1["Genetic"] --> D2["All 6"]
+    end
+```
 
 Full technical writeup in [`research/NOVEL-METHODOLOGY.md`](research/NOVEL-METHODOLOGY.md).
 
@@ -125,10 +130,7 @@ python -m vllm.entrypoints.openai.api_server \
 ```bash
 cp diaxiinject.yaml my-config.yaml
 # Edit with your vLLM server URL and target API keys
-```
 
-```bash
-# Set target API keys
 export OPENAI_API_KEY=sk-...
 export ANTHROPIC_API_KEY=sk-ant-...
 export GOOGLE_API_KEY=...
@@ -137,22 +139,20 @@ export GOOGLE_API_KEY=...
 ### 4. Run
 
 ```bash
-# Full multi-phase campaign against a target
+# Full multi-phase campaign
 diaxiinject campaign --target openai --budget 30
 
-# Single orchestrator attack
+# Single orchestrator
 diaxiinject attack --target google --type crescendo --objective "extract system prompt"
 
-# Evolve novel attack prompts
-diaxiinject evolve --target microsoft --objective "indirect prompt injection" --generations 100
+# Evolve novel attacks
+diaxiinject evolve --target microsoft --objective "indirect prompt injection" -g 100
 
-# Send a specific probe
+# Single probe with mutators
 diaxiinject probe --target openai --probe-id "LLM07-001" --mutators base64,homoglyph
 
-# View campaign results
+# Stats and reporting
 diaxiinject stats --campaign-id campaign-a1b2c3d4
-
-# Generate a bounty report
 diaxiinject report --campaign-id campaign-a1b2c3d4 --format hackerone
 ```
 
@@ -160,21 +160,33 @@ diaxiinject report --campaign-id campaign-a1b2c3d4 --format hackerone
 
 ## Campaign Pipeline
 
-A campaign runs **5 phases**, each escalating based on results from the previous:
-
-<p align="center">
-  <img src="docs/assets/pipeline.svg" alt="Campaign Pipeline" width="700" />
-</p>
+```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#161b22', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#30363d', 'lineColor': '#30363d', 'fontSize': '12px'}}}%%
+graph TD
+    P1["Phase 1: Single-Turn Probes\n69 probes x raw + mutated"] -->|"score > 0.3"| P2["Phase 2: PAIR\n~20 iterations"]
+    P1 -->|"score < 0.15"| P3["Phase 3: TAP\nwidth 4 / depth 5"]
+    P2 --> P4["Phase 4: Crescendo\n10-15 turns"]
+    P3 --> P4
+    P4 -->|"score 0.5-0.7"| P5["Phase 5: Genetic\n50 gens / pop 20"]
+    P1 -.->|success| OUT["Findings\nHackerOne / MSRC reports"]
+    P2 -.->|success| OUT
+    P3 -.->|success| OUT
+    P4 -.->|success| OUT
+    P5 -.->|success| OUT
+```
 
 ---
 
 ## Scoring Pipeline
 
-Three-tier cascade ensures accuracy while minimizing cost:
-
-<p align="center">
-  <img src="docs/assets/scoring.svg" alt="Scoring Pipeline" width="700" />
-</p>
+```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': {'primaryColor': '#161b22', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#30363d', 'lineColor': '#30363d', 'fontSize': '12px'}}}%%
+graph LR
+    IN["Response"] --> T1["Tier 1: Rules\n27 patterns\n<i>weight 0.35</i>"]
+    T1 --> T2["Tier 2: Classifier\nrefusal ratio\n<i>weight 0.35</i>"]
+    T2 --> T3["Tier 3: LLM Judge\nscores 1-10\n<i>weight 0.30</i>"]
+    T3 --> SC["Score\n0.0 - 1.0\nthr: 0.7"]
+```
 
 ---
 
