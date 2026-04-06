@@ -1,72 +1,85 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" fill="none">
-  <defs>
-    <linearGradient id="gPurple" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
-    <linearGradient id="gSlate" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#334155"/></linearGradient>
-    <linearGradient id="gRed" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dc2626"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
-    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
-    <linearGradient id="gAmber" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
-    <linearGradient id="gGreen" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
-    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.3"/></filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" fill="none">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+    .label { fill: #6e7681; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .label-accent { fill: #58a6ff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .title { fill: #e6edf3; font-size: 13px; font-weight: 600; }
+    .sub { fill: #8b949e; font-size: 11px; }
+    .detail { fill: #6e7681; font-size: 10px; }
+    .line { stroke: #30363d; stroke-width: 1; fill: none; }
+    .line-accent { stroke: #58a6ff; stroke-width: 1; fill: none; opacity: 0.5; }
+    .dot { fill: #58a6ff; }
+  </style>
 
-  <!-- Background -->
-  <rect width="800" height="620" rx="16" fill="#0f172a"/>
+  <!-- YOU -->
+  <circle cx="360" cy="30" r="3" class="dot"/>
+  <text x="360" y="22" text-anchor="middle" class="label">YOU</text>
 
-  <!-- YOU node -->
-  <rect x="310" y="24" width="180" height="52" rx="12" fill="url(#gPurple)" filter="url(#shadow)"/>
-  <text x="400" y="48" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="700">You</text>
-  <text x="400" y="65" text-anchor="middle" fill="#e0d4ff" font-family="Inter,system-ui,sans-serif" font-size="11">Security Researcher</text>
+  <line x1="360" y1="33" x2="360" y2="62" class="line"/>
+  <polygon points="356,58 360,66 364,58" fill="#30363d"/>
 
-  <!-- Arrow 1 -->
-  <line x1="400" y1="76" x2="400" y2="104" stroke="#475569" stroke-width="2"/>
-  <polygon points="394,100 400,112 406,100" fill="#475569"/>
+  <!-- CLI box -->
+  <rect x="220" y="66" width="280" height="44" rx="5" fill="none" stroke="#58a6ff" stroke-width="1"/>
+  <text x="360" y="86" text-anchor="middle" class="title">DiaxiInject CLI</text>
+  <text x="360" y="100" text-anchor="middle" class="detail">campaign controller</text>
 
-  <!-- CLI node -->
-  <rect x="270" y="112" width="260" height="52" rx="12" fill="url(#gSlate)" stroke="#475569" stroke-width="1" filter="url(#shadow)"/>
-  <text x="400" y="136" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="700">DiaxiInject CLI</text>
-  <text x="400" y="153" text-anchor="middle" fill="#94a3b8" font-family="Inter,system-ui,sans-serif" font-size="11">Campaign Controller</text>
+  <!-- Split line -->
+  <line x1="360" y1="110" x2="360" y2="134" class="line"/>
+  <line x1="180" y1="134" x2="540" y2="134" class="line"/>
+  <line x1="180" y1="134" x2="180" y2="162" class="line"/>
+  <line x1="540" y1="134" x2="540" y2="162" class="line"/>
+  <polygon points="176,158 180,166 184,158" fill="#30363d"/>
+  <polygon points="536,158 540,166 544,158" fill="#30363d"/>
 
-  <!-- Split arrows -->
-  <path d="M330 164 L330 178 Q330 188 320 188 L210 188 Q200 188 200 198 L200 214" stroke="#475569" stroke-width="2" fill="none"/>
-  <polygon points="194,210 200,222 206,210" fill="#475569"/>
-  <path d="M470 164 L470 178 Q470 188 480 188 L590 188 Q600 188 600 198 L600 214" stroke="#475569" stroke-width="2" fill="none"/>
-  <polygon points="594,210 600,222 606,210" fill="#475569"/>
+  <!-- Attacker LLM -->
+  <rect x="60" y="166" width="240" height="138" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="186" class="label-accent">ATTACKER</text>
+  <text x="180" y="208" text-anchor="middle" class="title">Local LLM</text>
+  <text x="180" y="224" text-anchor="middle" class="sub">vLLM / Uncensored</text>
+  <line x1="80" y1="236" x2="280" y2="236" stroke="#21262d" stroke-width="1"/>
+  <text x="180" y="256" text-anchor="middle" class="detail">Generates adversarial prompts</text>
+  <text x="180" y="272" text-anchor="middle" class="detail">Scores target responses</text>
+  <text x="180" y="288" text-anchor="middle" class="detail">Evolves novel bypasses</text>
 
-  <!-- Attacker LLM node -->
-  <rect x="90" y="222" width="220" height="120" rx="12" fill="url(#gRed)" filter="url(#shadow)"/>
-  <text x="200" y="250" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="700">Attacker LLM</text>
-  <text x="200" y="270" text-anchor="middle" fill="#fecaca" font-family="Inter,system-ui,sans-serif" font-size="12">Local / vLLM  -  Uncensored</text>
-  <line x1="130" y1="284" x2="270" y2="284" stroke="#fca5a5" stroke-width="0.5" stroke-opacity="0.4"/>
-  <text x="200" y="302" text-anchor="middle" fill="#fde8e8" font-family="Inter,system-ui,sans-serif" font-size="11">Generates attacks</text>
-  <text x="200" y="318" text-anchor="middle" fill="#fde8e8" font-family="Inter,system-ui,sans-serif" font-size="11">Scores responses &amp; evolves bypasses</text>
-  <text x="200" y="334" text-anchor="middle" fill="#fde8e8" font-family="Inter,system-ui,sans-serif" font-size="11">Plans multi-turn &amp; writes reports</text>
+  <!-- Target LLM -->
+  <rect x="420" y="166" width="240" height="138" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="440" y="186" class="label-accent">TARGET</text>
+  <text x="540" y="208" text-anchor="middle" class="title">Cloud LLM</text>
+  <text x="540" y="224" text-anchor="middle" class="sub">API Endpoint</text>
+  <line x1="440" y1="236" x2="640" y2="236" stroke="#21262d" stroke-width="1"/>
+  <text x="540" y="256" text-anchor="middle" class="detail">OpenAI / Google / Microsoft</text>
+  <text x="540" y="272" text-anchor="middle" class="detail">Anthropic / Meta / xAI</text>
+  <text x="540" y="288" text-anchor="middle" class="detail">Mistral / HuggingFace</text>
 
-  <!-- Target LLM node -->
-  <rect x="490" y="222" width="220" height="120" rx="12" fill="url(#gBlue)" filter="url(#shadow)"/>
-  <text x="600" y="250" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="16" font-weight="700">Target LLM</text>
-  <text x="600" y="270" text-anchor="middle" fill="#bfdbfe" font-family="Inter,system-ui,sans-serif" font-size="12">Cloud API</text>
-  <line x1="530" y1="284" x2="670" y2="284" stroke="#93c5fd" stroke-width="0.5" stroke-opacity="0.4"/>
-  <text x="600" y="302" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="11">OpenAI  /  Google  /  Microsoft</text>
-  <text x="600" y="318" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="11">Anthropic  /  Meta  /  xAI</text>
-  <text x="600" y="334" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="11">Mistral  /  HuggingFace</text>
+  <!-- Bidirectional arrow between attacker and target -->
+  <line x1="300" y1="210" x2="420" y2="210" class="line-accent" stroke-dasharray="4 3"/>
 
-  <!-- Converge arrows -->
-  <path d="M200 342 L200 370 Q200 380 210 380 L390 380" stroke="#475569" stroke-width="2" fill="none"/>
-  <path d="M600 342 L600 370 Q600 380 590 380 L410 380" stroke="#475569" stroke-width="2" fill="none"/>
-  <line x1="400" y1="380" x2="400" y2="404" stroke="#475569" stroke-width="2"/>
-  <polygon points="394,400 400,412 406,400" fill="#475569"/>
+  <!-- Converge lines -->
+  <line x1="180" y1="304" x2="180" y2="340" class="line"/>
+  <line x1="540" y1="304" x2="540" y2="340" class="line"/>
+  <line x1="180" y1="340" x2="540" y2="340" class="line"/>
+  <line x1="360" y1="340" x2="360" y2="368" class="line"/>
+  <polygon points="356,364 360,372 364,364" fill="#30363d"/>
 
-  <!-- Scoring Pipeline node -->
-  <rect x="220" y="412" width="360" height="60" rx="12" fill="url(#gAmber)" filter="url(#shadow)"/>
-  <text x="400" y="438" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="700">Scoring Pipeline</text>
-  <text x="400" y="458" text-anchor="middle" fill="#fef3c7" font-family="Inter,system-ui,sans-serif" font-size="12">Rules  &#8594;  Classifier  &#8594;  LLM Judge</text>
+  <!-- Scoring Pipeline -->
+  <rect x="120" y="372" width="480" height="48" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="140" y="393" class="label">SCORING</text>
 
-  <!-- Arrow 4 -->
-  <line x1="400" y1="472" x2="400" y2="510" stroke="#475569" stroke-width="2"/>
-  <polygon points="394,506 400,518 406,506" fill="#475569"/>
+  <!-- Three tier pills inside scoring -->
+  <text x="228" y="393" text-anchor="middle" class="sub">Rules</text>
+  <text x="282" y="393" text-anchor="middle" class="detail">&rarr;</text>
+  <text x="348" y="393" text-anchor="middle" class="sub">Classifier</text>
+  <text x="414" y="393" text-anchor="middle" class="detail">&rarr;</text>
+  <text x="480" y="393" text-anchor="middle" class="sub">LLM Judge</text>
+  <text x="360" y="410" text-anchor="middle" class="detail">three-tier cascade / threshold 0.7</text>
 
-  <!-- Evidence Engine node -->
-  <rect x="220" y="518" width="360" height="60" rx="12" fill="url(#gGreen)" filter="url(#shadow)"/>
-  <text x="400" y="544" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="700">Evidence Engine</text>
-  <text x="400" y="564" text-anchor="middle" fill="#d1fae5" font-family="Inter,system-ui,sans-serif" font-size="12">HackerOne  /  MSRC  /  Bugcrowd Reports</text>
+  <!-- Arrow to output -->
+  <line x1="360" y1="420" x2="360" y2="452" class="line"/>
+  <polygon points="356,448 360,456 364,448" fill="#30363d"/>
+
+  <!-- Evidence Engine -->
+  <rect x="120" y="456" width="480" height="48" rx="5" fill="none" stroke="#58a6ff" stroke-width="1"/>
+  <text x="140" y="477" class="label-accent">OUTPUT</text>
+  <text x="360" y="477" text-anchor="middle" class="title">Evidence Engine</text>
+  <text x="360" y="493" text-anchor="middle" class="detail">HackerOne / MSRC / Bugcrowd reports</text>
 </svg>

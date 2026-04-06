@@ -1,79 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" fill="none">
-  <defs>
-    <linearGradient id="sG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
-    <linearGradient id="sB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
-    <linearGradient id="sR" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dc2626"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
-    <linearGradient id="sA" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
-    <filter id="s3"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.25"/></filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" fill="none">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+    .tier-label { fill: #58a6ff; font-size: 10px; letter-spacing: 1px; font-weight: 600; }
+    .title { fill: #e6edf3; font-size: 12px; font-weight: 600; }
+    .detail { fill: #6e7681; font-size: 10px; }
+    .sub { fill: #8b949e; font-size: 10px; }
+    .weight { fill: #58a6ff; font-size: 10px; font-weight: 600; }
+    .tag { fill: #3fb950; font-size: 9px; letter-spacing: 0.5px; }
+    .line { stroke: #30363d; stroke-width: 1; fill: none; }
+  </style>
 
-  <rect width="800" height="200" rx="12" fill="#0f172a"/>
+  <!-- Input: Response -->
+  <rect x="16" y="56" width="80" height="40" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="56" y="72" text-anchor="middle" class="sub">Response</text>
+  <text x="56" y="84" text-anchor="middle" class="detail">input</text>
 
-  <!-- Input -->
-  <rect x="20" y="60" width="100" height="80" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" filter="url(#s3)"/>
-  <text x="70" y="96" text-anchor="middle" fill="#94a3b8" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="600">Response</text>
-  <text x="70" y="114" text-anchor="middle" fill="#64748b" font-family="Inter,system-ui,sans-serif" font-size="10">Input</text>
+  <!-- Arrow to Tier 1 -->
+  <line x1="96" y1="76" x2="130" y2="76" class="line"/>
+  <polygon points="126,72 134,76 126,80" fill="#30363d"/>
 
-  <!-- Arrow -->
-  <line x1="120" y1="100" x2="150" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <polygon points="147,95 157,100 147,105" fill="#475569"/>
+  <!-- Tier 1: Rules -->
+  <rect x="136" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="156" y="48" class="tier-label">TIER 1</text>
+  <text x="211" y="48" class="title">Rules</text>
+  <line x1="150" y1="56" x2="272" y2="56" stroke="#21262d" stroke-width="1"/>
+  <text x="211" y="72" text-anchor="middle" class="detail">27 refusal patterns</text>
+  <text x="211" y="86" text-anchor="middle" class="detail">compliance signals</text>
+  <text x="211" y="104" text-anchor="middle" class="tag">fast / free</text>
+  <text x="211" y="18" text-anchor="middle" class="weight">0.35</text>
 
-  <!-- Tier 1 -->
-  <rect x="158" y="40" width="150" height="120" rx="10" fill="url(#sG)" filter="url(#s3)"/>
-  <text x="233" y="66" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700">Tier 1: Rules</text>
-  <text x="233" y="64" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="0">.</text>
-  <line x1="178" y1="76" x2="288" y2="76" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/>
-  <text x="233" y="94" text-anchor="middle" fill="#d1fae5" font-family="Inter,system-ui,sans-serif" font-size="10">27 refusal patterns</text>
-  <text x="233" y="110" text-anchor="middle" fill="#d1fae5" font-family="Inter,system-ui,sans-serif" font-size="10">Compliance signals</text>
-  <text x="233" y="126" text-anchor="middle" fill="#d1fae5" font-family="Inter,system-ui,sans-serif" font-size="10">Structure heuristics</text>
-  <rect x="178" y="138" width="110" height="16" rx="4" fill="white" fill-opacity="0.15"/>
-  <text x="233" y="150" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">FAST  -  FREE</text>
+  <!-- Arrow to Tier 2 -->
+  <line x1="286" y1="76" x2="320" y2="76" class="line"/>
+  <polygon points="316,72 324,76 316,80" fill="#30363d"/>
 
-  <!-- Arrow -->
-  <line x1="308" y1="100" x2="338" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <polygon points="335,95 345,100 335,105" fill="#475569"/>
+  <!-- Tier 2: Classifier -->
+  <rect x="326" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="346" y="48" class="tier-label">TIER 2</text>
+  <text x="401" y="48" class="title">Classifier</text>
+  <line x1="340" y1="56" x2="462" y2="56" stroke="#21262d" stroke-width="1"/>
+  <text x="401" y="72" text-anchor="middle" class="detail">refusal ratio analysis</text>
+  <text x="401" y="86" text-anchor="middle" class="detail">position detection</text>
+  <text x="401" y="104" text-anchor="middle" class="tag">fast / free</text>
+  <text x="401" y="18" text-anchor="middle" class="weight">0.35</text>
 
-  <!-- Tier 2 -->
-  <rect x="346" y="40" width="150" height="120" rx="10" fill="url(#sB)" filter="url(#s3)"/>
-  <text x="421" y="66" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700">Tier 2: Classifier</text>
-  <line x1="366" y1="76" x2="476" y2="76" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/>
-  <text x="421" y="94" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="10">Refusal ratio analysis</text>
-  <text x="421" y="110" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="10">Position detection</text>
-  <text x="421" y="126" text-anchor="middle" fill="#dbeafe" font-family="Inter,system-ui,sans-serif" font-size="10">Structural signals</text>
-  <rect x="366" y="138" width="110" height="16" rx="4" fill="white" fill-opacity="0.15"/>
-  <text x="421" y="150" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">FAST  -  FREE</text>
+  <!-- Arrow to Tier 3 -->
+  <line x1="476" y1="76" x2="510" y2="76" class="line"/>
+  <polygon points="506,72 514,76 506,80" fill="#30363d"/>
 
-  <!-- Arrow -->
-  <line x1="496" y1="100" x2="526" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <polygon points="523,95 533,100 523,105" fill="#475569"/>
+  <!-- Tier 3: LLM Judge -->
+  <rect x="516" y="28" width="150" height="96" rx="5" fill="none" stroke="#30363d" stroke-width="1"/>
+  <text x="536" y="48" class="tier-label">TIER 3</text>
+  <text x="591" y="48" class="title">LLM Judge</text>
+  <line x1="530" y1="56" x2="652" y2="56" stroke="#21262d" stroke-width="1"/>
+  <text x="591" y="72" text-anchor="middle" class="detail">attacker LLM scores 1-10</text>
+  <text x="591" y="86" text-anchor="middle" class="detail">borderline cases only</text>
+  <text x="591" y="104" text-anchor="middle" class="tag">accurate</text>
+  <text x="591" y="18" text-anchor="middle" class="weight">0.30</text>
 
-  <!-- Tier 3 -->
-  <rect x="534" y="40" width="150" height="120" rx="10" fill="url(#sR)" filter="url(#s3)"/>
-  <text x="609" y="66" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700">Tier 3: LLM Judge</text>
-  <line x1="554" y1="76" x2="664" y2="76" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/>
-  <text x="609" y="94" text-anchor="middle" fill="#fef2f2" font-family="Inter,system-ui,sans-serif" font-size="10">Attacker LLM scores 1-10</text>
-  <text x="609" y="110" text-anchor="middle" fill="#fef2f2" font-family="Inter,system-ui,sans-serif" font-size="10">Borderline cases only</text>
-  <text x="609" y="126" text-anchor="middle" fill="#fef2f2" font-family="Inter,system-ui,sans-serif" font-size="10">Calibrated judgment</text>
-  <rect x="554" y="138" width="110" height="16" rx="4" fill="white" fill-opacity="0.15"/>
-  <text x="609" y="150" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">ACCURATE</text>
+  <!-- Arrow to Output -->
+  <line x1="666" y1="76" x2="688" y2="76" class="line"/>
+  <polygon points="684,72 692,76 684,80" fill="#30363d"/>
 
-  <!-- Arrow -->
-  <line x1="684" y1="100" x2="714" y2="100" stroke="#475569" stroke-width="1.5"/>
-  <polygon points="711,95 721,100 711,105" fill="#475569"/>
+  <!-- Output: Score -->
+  <rect x="694" y="48" width="20" height="56" rx="3" fill="none" stroke="#58a6ff" stroke-width="1"/>
+  <text x="704" y="72" text-anchor="middle" class="title" style="font-size: 11px;">S</text>
+  <text x="704" y="84" text-anchor="middle" class="title" style="font-size: 11px;">C</text>
 
-  <!-- Output -->
-  <rect x="722" y="52" width="60" height="96" rx="10" fill="url(#sA)" filter="url(#s3)"/>
-  <text x="752" y="88" text-anchor="middle" fill="white" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="700">Score</text>
-  <text x="752" y="106" text-anchor="middle" fill="#fef3c7" font-family="Inter,system-ui,sans-serif" font-size="9">0.0 - 1.0</text>
-  <text x="752" y="120" text-anchor="middle" fill="#fef3c7" font-family="Inter,system-ui,sans-serif" font-size="8">thr: 0.7</text>
+  <!-- Score details below -->
+  <text x="591" y="148" text-anchor="middle" class="sub">Score 0.0 - 1.0</text>
+  <text x="591" y="164" text-anchor="middle" class="detail">threshold 0.7</text>
 
-  <!-- Weight labels -->
-  <text x="233" y="24" text-anchor="middle" fill="#64748b" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">0.35</text>
-  <text x="421" y="24" text-anchor="middle" fill="#64748b" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">0.35</text>
-  <text x="609" y="24" text-anchor="middle" fill="#64748b" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">0.30</text>
-
-  <!-- Weight bars -->
-  <rect x="208" y="28" width="50" height="4" rx="2" fill="#059669" fill-opacity="0.5"/>
-  <rect x="396" y="28" width="50" height="4" rx="2" fill="#2563eb" fill-opacity="0.5"/>
-  <rect x="584" y="28" width="50" height="4" rx="2" fill="#dc2626" fill-opacity="0.5"/>
+  <!-- Thin progress bar showing the cascade -->
+  <line x1="136" y1="140" x2="666" y2="140" stroke="#21262d" stroke-width="2"/>
+  <line x1="136" y1="140" x2="322" y2="140" stroke="#58a6ff" stroke-width="2" opacity="0.4"/>
+  <line x1="322" y1="140" x2="512" y2="140" stroke="#58a6ff" stroke-width="2" opacity="0.25"/>
+  <line x1="512" y1="140" x2="666" y2="140" stroke="#58a6ff" stroke-width="2" opacity="0.15"/>
 </svg>
