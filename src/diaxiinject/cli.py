@@ -21,7 +21,7 @@ from rich.progress import (
 )
 from rich.table import Table
 
-from diaxiinject.config import DiaxiConfig
+from diaxiinject.config import DiaxiConfig, delete_key, get_key, load_keys, save_key
 
 console = Console()
 
@@ -590,6 +590,62 @@ def _display_stats(campaign_stats) -> None:
         ):
             table.add_row(cat, str(count))
         console.print(table)
+
+
+# ------------------------------------------------------------------
+# keys
+# ------------------------------------------------------------------
+
+@cli.group()
+def keys() -> None:
+    """Manage saved API keys for target providers."""
+
+
+@keys.command("set")
+@click.argument("provider")
+@click.argument("api_key")
+def keys_set(provider: str, api_key: str) -> None:
+    """Save an API key for PROVIDER.
+
+    \b
+    Examples:
+      diaxiinject keys set anthropic sk-ant-api03-...
+      diaxiinject keys set openai sk-...
+      diaxiinject keys set google AIza...
+    """
+    save_key(provider, api_key)
+    masked = api_key[:8] + "..." + api_key[-4:]
+    console.print(f"[green]Saved[/green] [cyan]{provider}[/cyan] key: [dim]{masked}[/dim]")
+
+
+@keys.command("list")
+def keys_list() -> None:
+    """List all saved provider keys (masked)."""
+    all_keys = load_keys()
+    if not all_keys:
+        console.print("[yellow]No keys saved. Use:[/yellow] diaxiinject keys set <provider> <key>")
+        return
+
+    table = Table(show_header=True, header_style="bold magenta", border_style="dim")
+    table.add_column("Provider", style="cyan")
+    table.add_column("Key (masked)")
+    table.add_column("Status")
+
+    for provider, key in sorted(all_keys.items()):
+        masked = key[:8] + "..." + key[-4:] if len(key) > 12 else "***"
+        table.add_row(provider, masked, "[green]set[/green]")
+
+    console.print(table)
+
+
+@keys.command("delete")
+@click.argument("provider")
+def keys_delete(provider: str) -> None:
+    """Remove the saved key for PROVIDER."""
+    if delete_key(provider):
+        console.print(f"[green]Deleted[/green] key for [cyan]{provider}[/cyan]")
+    else:
+        console.print(f"[yellow]No key found for '{provider}'[/yellow]")
 
 
 # ------------------------------------------------------------------

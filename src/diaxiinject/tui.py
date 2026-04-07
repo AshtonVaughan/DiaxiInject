@@ -389,10 +389,17 @@ class Dashboard:
         except Exception as e:
             self.log(f"[yellow]DB init failed: {e} (results in memory only)[/yellow]")
 
+        from diaxiinject.config import get_key as _get_key
         hub = ProviderHub()
+        # Resolve API key: campaign config > user keystore
+        _api_key = (
+            config.campaign.target_api_key
+            or _get_key(config.campaign.target)
+            or None
+        )
         target = hub.get_target(
             provider=config.campaign.target,
-            api_key=config.campaign.target_api_key or None,
+            api_key=_api_key,
         )
         attacker = hub.get_attacker(config.attacker)
         scorer = ScoringPipeline()

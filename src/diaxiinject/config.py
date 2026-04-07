@@ -13,6 +13,66 @@ DATA_DIR = ROOT_DIR / "data"
 PROFILES_DIR = Path(__file__).resolve().parent / "targets" / "profiles"
 DB_PATH = ROOT_DIR / "db" / "diaxiinject.db"
 
+# User-level keystore - never committed to git
+KEYS_PATH = Path.home() / ".diaxiinject" / "keys.yaml"
+
+# Canonical provider name aliases (what users type -> canonical key)
+_PROVIDER_ALIASES: dict[str, str] = {
+    "anthropic": "anthropic",
+    "claude": "anthropic",
+    "openai": "openai",
+    "gpt": "openai",
+    "google": "google",
+    "gemini": "google",
+    "microsoft": "microsoft",
+    "azure": "microsoft",
+    "mistral": "mistral",
+    "xai": "xai",
+    "grok": "xai",
+    "meta": "meta",
+    "llama": "meta",
+}
+
+
+def _canonical(provider: str) -> str:
+    """Normalise provider name to its canonical form."""
+    return _PROVIDER_ALIASES.get(provider.lower().split("/")[0], provider.lower().split("/")[0])
+
+
+def load_keys() -> dict[str, str]:
+    """Load all saved API keys from the user keystore."""
+    if not KEYS_PATH.exists():
+        return {}
+    try:
+        data = yaml.safe_load(KEYS_PATH.read_text()) or {}
+        return {k: v for k, v in data.items() if isinstance(v, str) and v}
+    except Exception:
+        return {}
+
+
+def save_key(provider: str, api_key: str) -> None:
+    """Persist an API key for a provider to the user keystore."""
+    KEYS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    keys = load_keys()
+    keys[_canonical(provider)] = api_key
+    KEYS_PATH.write_text(yaml.dump(keys, default_flow_style=False))
+
+
+def delete_key(provider: str) -> bool:
+    """Remove a provider's key. Returns True if it existed."""
+    keys = load_keys()
+    canon = _canonical(provider)
+    if canon not in keys:
+        return False
+    del keys[canon]
+    KEYS_PATH.write_text(yaml.dump(keys, default_flow_style=False))
+    return True
+
+
+def get_key(provider: str) -> str | None:
+    """Return the saved API key for a provider, or None."""
+    return load_keys().get(_canonical(provider))
+
 
 @dataclass
 class AttackerLLMConfig:
